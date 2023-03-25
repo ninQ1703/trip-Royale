@@ -1,0 +1,23 @@
+required funtionalities:
+    1) PUT only                 done: no
+    a form which takes input tag, amount
+        the same form takes split distribtion
+
+    2) GET only                 done : no
+    All Expenses
+        shows total of all expenses for a person tag wise
+
+    3) GET only                 done : yes
+    for each person display a list of pending items with total pending
+        for each list:
+            amount to be paid
+            date
+
+    4) GET only                 done : yes
+    number of splits of person as owner
+
+    5) GET only
+    detailed split
+        for a split             done : yes
+            get all split distribution info
+        
