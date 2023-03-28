@@ -9,6 +9,7 @@ class App extends Component {
     this.state = {
       users: [],
     };
+    this.getList = this.getList.bind(this);
   }
 
   async componentDidMount() {
@@ -22,45 +23,69 @@ class App extends Component {
       console.log(e);
     }
   }
+
+  //function to display the list of epnding payments
   getList = (props) => {
-    // return( <p>hi</p>)
-    const [list, setlist] = useState({list : []});
+    const [list, setlist] = useState({ list: [] });
 
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(`http://127.0.0.1:8000/mydebt/2/${props.id}/`)
-            const newList = await response.json()
-            setlist(newList)
-        };
+      const fetchData = async () => {
+        const response = await fetch(`http://127.0.0.1:8000/mydebt/5/${props.id}/`)
+        const newList = await response.json()
+        setlist(newList)
+      };
 
-        fetchData();
+      fetchData();
     }, [])
-    if (list.length) {
-        console.log(list)
-        return list.map(item => (<p>{item.amount}</p>));
+
+
+    if (list.length && props.permit) {
+      console.log(list)
+      return list.map(item => (<div><p>{item.amount}</p></div>));
     } else {
-        return null;
+      return null;
     }
-    
+
   }
-    renderUsers = () => {
+
+
+  //function to expand view on button click
+  getDisplay = (props) => {
+    const [listText, setlistText] = useState('');
+    const [display, setDislay] = useState(false);
+    function changeDisplay() {
+      setDislay(!display)
+    }
+    return <div>
+      <button onClick={changeDisplay}>click here</button>
+      <this.getList id={props.id} permit={display}></this.getList>
+    </div>
+
+  }
+
+  //function to diplay all users
+  renderUsers = (props) => {
+    const [listText, setlistText] = useState('');
+    const [display, setDislay] = useState(false);
     const newUsers = this.state.users;
-    return newUsers.map(user => (
+
+    return newUsers.filter(user => user.id != 5).map(user => (
       <div>
         <p >
           {user.first_name}
-        </p><ul>
-        <this.getList id = {user.id}></this.getList>
-        </ul>
-        
+        </p>
+        <this.getDisplay id = {user.id}></this.getDisplay>
       </div>
     ));
   };
+
+
+
   render() {
     return (
       <main>
-        <p>{this.renderUsers()}</p>
-        {/* <this.getList></this.getList> */}
+        <this.renderUsers>
+        </this.renderUsers>
       </main>
     )
   }
