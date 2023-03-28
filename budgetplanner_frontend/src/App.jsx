@@ -1,91 +1,70 @@
 import React, { Component } from "react"
-import { useEffect, useState } from "react"
-
-
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: [],
+      total: 0,
+      dining: 0,
+      stay: 0,
+      adventure: 0,
+      shopping: 0,
+      travel: 0,
+      others: 0,
     };
-    this.getList = this.getList.bind(this);
   }
 
   async componentDidMount() {
     try {
-      const resUsers = await fetch(`http://127.0.0.1:8000/users/`);
-      const users = await resUsers.json();
+      const user = 3;
+      const res1 = await fetch(`http://localhost:8000/mytotaldebt/${user}/`);
+      const resDining = await fetch(`http://localhost:8000/mydebtbytag/${user}/dining/`);
+      const resStay = await fetch(`http://localhost:8000/mydebtbytag/${user}/stay/`);
+      const resAdventure = await fetch(`http://localhost:8000/mydebtbytag/${user}/adventure/`);
+      const resShopping = await fetch(`http://localhost:8000/mydebtbytag/${user}/shopping/`);
+      const resTravel = await fetch(`http://localhost:8000/mydebtbytag/${user}/travel/`);
+      const resOthers = await fetch(`http://localhost:8000/mydebtbytag/${user}/others/`);
+      const total = await res1.json();
+      const dining = await resDining.json();
+      const stay = await resStay.json();
+      const adventure = await resAdventure.json();
+      const shopping = await resShopping.json();
+      const travel = await resTravel.json();
+      const others = await resOthers.json();
       this.setState({
-        users,
+        total,
+        dining,
+        travel,
+        shopping,
+        adventure,
+        others,
+        stay,
       });
     } catch (e) {
       console.log(e);
     }
   }
 
-  //function to display the list of epnding payments
-  getList = (props) => {
-    const [list, setlist] = useState({ list: [] });
-
-    useEffect(() => {
-      const fetchData = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/mydebt/5/${props.id}/`)
-        const newList = await response.json()
-        setlist(newList)
-      };
-
-      fetchData();
-    }, [])
-
-
-    if (list.length && props.permit) {
-      console.log(list)
-      return list.map(item => (<div><p>{item.amount}</p></div>));
-    } else {
-      return null;
-    }
-
+  renderTotal = () => {
+    const total = this.state.total
+    return total;
   }
-
-
-  //function to expand view on button click
-  getDisplay = (props) => {
-    const [listText, setlistText] = useState('');
-    const [display, setDislay] = useState(false);
-    function changeDisplay() {
-      setDislay(!display)
-    }
-    return <div>
-      <button onClick={changeDisplay}>click here</button>
-      <this.getList id={props.id} permit={display}></this.getList>
-    </div>
-
-  }
-
-  //function to diplay all users
-  renderUsers = (props) => {
-    const [listText, setlistText] = useState('');
-    const [display, setDislay] = useState(false);
-    const newUsers = this.state.users;
-
-    return newUsers.filter(user => user.id != 5).map(user => (
-      <div>
-        <p >
-          {user.first_name}
-        </p>
-        <this.getDisplay id = {user.id}></this.getDisplay>
-      </div>
-    ));
-  };
-
-
-
+  renderDining = () => { return this.state.dining };
+  renderStay = () => this.state.stay;
+  renderAdventure = () => this.state.adventure;
+  renderShopping = () => this.state.shopping;
+  renderTravel = () => this.state.travel;
+  renderOthers = () => this.state.others;
   render() {
     return (
       <main>
-        <this.renderUsers>
-        </this.renderUsers>
+        <p>TOTAL : {this.renderTotal()}</p>
+        <p>DINING : {this.renderDining()}</p>
+        <p>STAY : {this.renderStay()}</p>
+        <p>ADVENTURE : {this.renderAdventure()}</p>
+        <p>SHOPPING : {this.renderShopping()}</p>
+        <p>TRAVEL : {this.renderTravel()}</p>
+        <p>OTHERS : {this.renderOthers()}</p>
       </main>
     )
   }
