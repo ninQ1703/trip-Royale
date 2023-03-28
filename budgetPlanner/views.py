@@ -16,7 +16,9 @@ class getAllUsers(APIView):
     def get(self, request):
         query = User.objects.all()
         serialized_class = UserSerializer(query, many = True)
-        return Response(serialized_class.data)
+        serialized_data = serialized_class.data
+        serialized_data.sort(key=operator.itemgetter('first_name')) 
+        return Response(serialized_data)
 
 class MySplits(APIView):
     def get(self, request, owner_id):
