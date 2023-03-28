@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Split, SplitDistribution
+from .models import User, Split, SplitDistribution, Todo
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -8,7 +8,7 @@ class UserSerializer(serializers.ModelSerializer):
 class UserIDSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id')
+        fields = ('id',)
 
 
 class SplitSerializer(serializers.ModelSerializer):
@@ -24,3 +24,8 @@ class SplitDistributionSerializer(serializers.ModelSerializer):
     class Meta:
         model = SplitDistribution
         fields = ('id','split','debtor','amount')
+
+class TodoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Todo
+        fields = ('id' ,'title', 'description', 'completed')

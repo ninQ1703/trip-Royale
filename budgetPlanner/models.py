@@ -31,3 +31,12 @@ class SplitDistribution(models.Model):
     split = models.ForeignKey(Split,on_delete=models.CASCADE)
     debtor = models.ForeignKey( User, on_delete=models.CASCADE)
     amount = models.FloatField(default=0.00)   
+
+class Todo(models.Model):
+   title = models.CharField(max_length=100)
+   description = models.TextField()
+   completed = models.BooleanField(default=False)
+
+   def _str_(self):
+     return self.title
+   

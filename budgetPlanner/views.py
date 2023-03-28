@@ -3,8 +3,8 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import User, Split, SplitDistribution
-from .serializers import UserSerializer, SplitDistributionSerializer, SplitSerializer 
+from .models import User, Split, SplitDistribution, Todo
+from .serializers import UserSerializer, SplitDistributionSerializer, SplitSerializer , UserIDSerializer, TodoSerializer
 from rest_framework import status
 from rest_framework import mixins
 from rest_framework import generics
@@ -12,6 +12,11 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from operator import itemgetter
 # Create your views here.
+class getAllUsers(APIView):
+    def get(self, request):
+        query = User.objects.all()
+        serialized_class = UserSerializer(query, many = True)
+        return Response(serialized_class.data)
 
 class MySplits(APIView):
     def get(self, request, owner_id):
@@ -81,3 +86,6 @@ class TotalByOwners(APIView):
 
         return Response(total) 
     
+class TodoView(viewsets.ModelViewSet):  
+    serializer_class = TodoSerializer   
+    queryset = Todo.objects.all()    
