@@ -13,7 +13,7 @@ class App extends Component {
 
   async componentDidMount() {
     try {
-      const resSplits = await fetch(`http://127.0.0.1:8000/mysplits/1/`);
+      const resSplits = await fetch(`http://127.0.0.1:8000/mysplits/6/`);
       const splits = await resSplits.json();
       this.setState({
         splits,
@@ -48,7 +48,7 @@ class App extends Component {
     const [splitlist, setsplitlist] = useState({ splitlist: [] });
     useEffect(() => {
       const fetchData = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/mysplits/1/${props.id}/`)
+        const response = await fetch(`http://127.0.0.1:8000/mysplits/6/${props.id}/`)
         const newsplitList = await response.json()
         setsplitlist(newsplitList)
       };

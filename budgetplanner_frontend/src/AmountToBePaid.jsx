@@ -30,7 +30,7 @@ class App extends Component {
 
     useEffect(() => {
       const fetchData = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/mydebt/5/${props.id}/`)
+        const response = await fetch(`http://127.0.0.1:8000/mydebt/6/${props.id}/`)
         const newList = await response.json()
         setlist(newList)
       };
@@ -41,7 +41,7 @@ class App extends Component {
 
     if (list.length && props.permit) {
       console.log(list)
-      return list.map(item => (<div><p>{item.amount}</p></div>));
+      return list.map(item => (<div><p>{item.amount} {item.creation_date}</p></div>));
     } else {
       return null;
     }
@@ -69,7 +69,7 @@ class App extends Component {
     const [display, setDislay] = useState(false);
     const newUsers = this.state.users;
 
-    return newUsers.filter(user => user.id != 5).map(user => (
+    return newUsers.filter(user => user.id != 6).map(user => (
       <div>
         <p >
           {user.first_name}
@@ -84,6 +84,7 @@ class App extends Component {
   render() {
     return (
       <main>
+        <h4><ul><li>Date format</li></ul></h4>
         <this.renderUsers>
         </this.renderUsers>
       </main>
