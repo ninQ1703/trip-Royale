@@ -23,9 +23,14 @@ class SplitDistributionSerializer(serializers.ModelSerializer):
     # debtor = UserSerializer( read_only = True)
     class Meta:
         model = SplitDistribution
-        fields = ('id','split','debtor','amount')
+        fields = ('id','split','debtor','amount','paid')
 
 class TodoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Todo
         fields = ('id' ,'title', 'description', 'completed')
+
+class PaidSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SplitDistribution
+        fields = ('paid',)

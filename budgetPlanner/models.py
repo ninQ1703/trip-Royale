@@ -21,16 +21,18 @@ class Split(models.Model):
         ('shopping','Shopping'),
         ('others','Others'),
     )
-    creation_date = models.DateTimeField(auto_now_add=True)
+    creation_date = models.DateField(auto_now_add=True,)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     amount = models.FloatField(default=0.00)
     tag = models.CharField(max_length=10, choices=tag_options,default= 'others')
     number_of_debtors = models.IntegerField(default=1)
 
 class SplitDistribution(models.Model):
+
     split = models.ForeignKey(Split,on_delete=models.CASCADE)
     debtor = models.ForeignKey( User, on_delete=models.CASCADE)
     amount = models.FloatField(default=0.00)   
+    paid = models.BooleanField(default=False)
 
 class Todo(models.Model):
    title = models.CharField(max_length=100)
