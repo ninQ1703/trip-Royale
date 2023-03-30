@@ -20,7 +20,7 @@ class App extends Component {
          const fetchData = async () => {
             const resUsers = await fetch(`http://127.0.0.1:8000/users/`);
             let users = await resUsers.json();
-            users.map((user) =>{if(user.id===1) user.first_name = "you"; user.last_name = "";})
+            users.forEach((user) =>{if(user.id===1) user.first_name = "you"; user.last_name = "";user.amount = "0"})
             setUserAvail(users.filter((user) => user.id !== 1));
             setUserSel(users.filter((user) => user.id === 1));
          };
@@ -45,7 +45,8 @@ class App extends Component {
       const RemoveUser = (id) =>{
          if(id==null) return;
          const updateUserSel = userSel.filter((user) => user.id != id);
-         const newUser = userSel.filter((user) => user.id == id);
+         let newUser = userSel.filter((user) => user.id == id);
+         newUser.amount = "0";
          setUserSel(updateUserSel);
          let updateUserAvail = [
             ...userAvail,
@@ -60,12 +61,12 @@ class App extends Component {
          <select onChange={(event) => setSelUserIn(event.target.value)}>
             {userAvail.map((user) =>
                <option value={user.id} >
-                  {user.first_name} {user.last_name}
+                  {user.first_name} {user.last_name} 
                </option>)}
          </select>
          <button onClick={() => AddUser()}>ADD</button>
          {/* <ul>{userAvail.map((user) => <li>{user.first_name} {user.last_name}</li>)}</ul> */}
-         <ul>{userSel.map((user) => <div><li>{user.first_name} {user.last_name}</li>
+         <ul>{userSel.map((user) => <div><li>{user.first_name} {user.last_name} {user.amount}</li>
             <button onClick={() => RemoveUser(user.id)}>Delete</button>
          </div>)}</ul>
       </div>
