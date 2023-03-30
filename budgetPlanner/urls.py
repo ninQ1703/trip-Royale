@@ -1,6 +1,6 @@
 from django.urls import path, include
 from django.contrib import admin
-from .views import MySplits,getUser, DetailedMySplits, MyPendingSplitsByOwner, TotalByOwners, GetTotalDebt, GetTotalDebtByTag, getAllUsers, TodoView, isPaid
+from .views import MySplits,getUser, DetailedMySplits, MyPendingSplitsByOwner, TotalByOwners, GetTotalDebt, GetTotalDebtByTag, getAllUsers, TodoView, isPaid, CreateSplit, CreateSplitDistribution
 from rest_framework.routers import DefaultRouter
 app_name = 'budgetPlanner'
 
@@ -11,6 +11,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('users/', getAllUsers.as_view(),name='allusers'),
+    path('newsplit/',CreateSplit.as_view(),name='createnewsplit'),
+     path('newsplitdist/',CreateSplitDistribution.as_view(),name='createnewsplitdist'),
     path('users/<int:user_id>/',getUser.as_view(), name="getuser"),
     path('mysplits/<int:owner_id>/', MySplits.as_view(),name='mysplits'),
     path('mysplits/<int:owner_id>/<int:split_id>/', DetailedMySplits.as_view(), name='detailedmysplits'),

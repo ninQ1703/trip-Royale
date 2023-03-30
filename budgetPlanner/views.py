@@ -31,7 +31,7 @@ class getUser(APIView):
 # all splits created by me with details
 class MySplits(APIView):
     def get(self, request, owner_id):
-        query = Split.objects.filter(id = owner_id)
+        query = Split.objects.filter(owner = owner_id)
         serialized_class = SplitSerializer(query, many = True)
         return Response(serialized_class.data)
 
@@ -111,3 +111,21 @@ class isPaid(APIView):
         for i in range(len(serialized_data)):
             isPaidfully = isPaidfully and serialized_data[i]['paid']
         return Response(isPaidfully)
+    
+
+# POST methods
+class CreateSplit(APIView):
+    def post(self,request):
+        serializer_obj = SplitSerializer(data = request.data)
+        if serializer_obj.is_valid():
+            serializer_obj.save()
+            return Response(serializer_obj.data,status=status.HTTP_201_CREATED)
+        return Response(serializer_obj.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class CreateSplitDistribution(APIView):
+    def post(self,request):
+        serializer_obj = SplitDistributionSerializer(data = request.data)
+        if serializer_obj.is_valid():
+            serializer_obj.save()
+            return Response(serializer_obj.data,status=status.HTTP_201_CREATED)
+        return Response(serializer_obj.errors, status=status.HTTP_400_BAD_REQUEST)

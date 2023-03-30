@@ -38,7 +38,6 @@ class App extends Component {
       fetchData();
     }, [])
 
-
     if (list.length && props.permit) {
       console.log(list)
       return list.map(item => (<div><p>{item.amount} {item.creation_date}</p></div>));
@@ -51,7 +50,6 @@ class App extends Component {
 
   //function to expand view on button click
   getDisplay = (props) => {
-    const [listText, setlistText] = useState('');
     const [display, setDislay] = useState(false);
     function changeDisplay() {
       setDislay(!display)
@@ -65,8 +63,6 @@ class App extends Component {
 
   //function to diplay all users
   renderUsers = (props) => {
-    const [listText, setlistText] = useState('');
-    const [display, setDislay] = useState(false);
     const newUsers = this.state.users;
 
     return newUsers.filter(user => user.id != 6).map(user => (

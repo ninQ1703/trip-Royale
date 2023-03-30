@@ -15,7 +15,7 @@ class SplitSerializer(serializers.ModelSerializer):
     # owner = UserSerializer(read_only = True)
     class Meta:
         model = Split
-        fields = ('id','owner','amount','creation_date','tag','number_of_debtors')
+        fields = ('id','owner','amount','creation_date','tag')
 
 
 class SplitDistributionSerializer(serializers.ModelSerializer):
