@@ -129,3 +129,12 @@ class CreateSplitDistribution(APIView):
             serializer_obj.save()
             return Response(serializer_obj.data,status=status.HTTP_201_CREATED)
         return Response(serializer_obj.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class MarkPaid(APIView):
+    def put(self,request,id):
+        query = SplitDistribution.objects.filter(id=id)
+        serializer = PaidSerializer(query, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
