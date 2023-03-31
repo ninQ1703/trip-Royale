@@ -15,7 +15,7 @@ class App extends Component {
       const [Tamount, setTAmount] = useState("0");
       const [userAvail, setUserAvail] = useState([]);
       const [userSel, setUserSel] = useState([]);
-      const [selUserIn, setSelUserIn] = useState('');
+      const [selUserIn, setSelUserIn] = useState(null);
 
       useEffect(() => {
          const fetchData = async () => {
@@ -28,7 +28,7 @@ class App extends Component {
          fetchData();
       }, [])
       const AddUser = () => {
-         if (selUserIn == null) return;
+         if (selUserIn == null || selUserIn == undefined) return;
          const updateUserAvail = userAvail.filter((user) => user.id != selUserIn);
          const newUser = userAvail.filter((user) => user.id == selUserIn);
          setUserAvail(updateUserAvail);
@@ -36,9 +36,6 @@ class App extends Component {
             ...userSel,
             newUser[0]
          ]
-         updateUserSel = [...updateUserSel].sort((a, b) =>
-            a.first_name + a.last_name > b.first_name + b.last_name ? 1 : -1,
-         );
          setUserSel(updateUserSel);
       }
 
@@ -46,7 +43,7 @@ class App extends Component {
          if (id == null) return;
          const updateUserSel = userSel.filter((user) => user.id != id);
          let newUser = userSel.filter((user) => user.id == id);
-         newUser.amount = "0";
+         newUser.amount = 0;
          setUserSel(updateUserSel);
          let updateUserAvail = [
             ...userAvail,
@@ -58,18 +55,10 @@ class App extends Component {
          setUserAvail(updateUserAvail);
       }
 
-      const setAmount = (id, damount) => {
-         // let updateUserSel = userSel
-         // console.log(updateUserSel)
-         console.log(id)
-         for (let i = 0; i < userSel.length; i++) {
-            if (userSel[i]['id'] === id) {
-               userSel[i]['amount'] = damount;
-            }
-         }
-         console.log(userSel)
-         // updateUserSel.map((user) => { if (user.id == id) { user.amount = amount } });
-         setUserSel(userSel);
+      const setAmount = (id, amount) => {
+         let updateUserSel = [...userSel]
+         updateUserSel.map((user) => { if (user.id == id) { user.amount = amount } });
+         setUserSel(updateUserSel);
       }
 
       const handleSubmit = (e) => {
@@ -108,37 +97,54 @@ class App extends Component {
             });
       };
       return (
-         <div><div>
-            <p>{Tamount}</p>
+         <div>
+
             <form onSubmit={handleSubmit}>
-               <select onChange={(event) => setTag(event.target.value)}>
+
+               {/* select a tag field */}
+               <select onChange={(event) => { setTag(event.target.value) }}>
+                  <option disabled selected value >--select a tag--</option>
                   <option value="travel">travel</option>
                   <option value="shopping">shopping</option>
                   <option value="stay">stay</option>
                   <option value="adventure">adventure</option>
                   <option value="dining">dining</option>
-                  <option selected value="others">others</option>
+                  <option value="others">others</option>
                </select>
-               <input type="number" min="0" step="0.01" onChange={(event) => setTAmount(event.target.value)} />
+
+               {/* enter total amount */}
+               <input type="number" min="0" step="1" onChange={(event) => setTAmount(event.target.value)} /><br></br>
+
+               {/* select a user to be added */}
                <div>
                   <select onChange={(event) => setSelUserIn(event.target.value)}>
+                     <option disabled selected value="notAllowed">--select a friend--</option>
                      {userAvail.map((user) =>
                         <option value={user.id} >
                            {user.first_name} {user.last_name}
                         </option>)}
                   </select>
-                  <button onClick={() => AddUser()}>ADD</button>
-                  {/* <ul>{userAvail.map((user) => <li>{user.first_name} {user.last_name}</li>)}</ul> */}
-                  <ul>{userSel.map((user) => <div><li>{user.first_name} {user.id} </li>
-                     <input type="number" min="0.00" step="0.01" onChange={(event) => setAmount(user.id, event.target.value)} />
-                     <button onClick={() => RemoveUser(user.id)}>Delete</button>
-                     <p>{user.amount}</p>
-                  </div>)}</ul>
-               </div>
-               <button type="submit">Add Post</button>
-            </form>
-         </div>
 
+                  {/* add user button */}
+                  <button type="button" onClick={() => AddUser()}>ADD</button>
+
+                  {/* added users */}
+                  <ul>{userSel.map((user) => {
+                     return <div>
+                        <li>{user.first_name} {user.last_name}
+                           <input type="number" min="0.00" /*pattern='d\+\.\d\d$'*/ step="1" defaultValue={user.amount} onChange={(event) => { setAmount(user.id, event.target.value); }} />
+                           {/* {user.amount} */}
+                        </li>
+                        <button type="button" onClick={() => RemoveUser(user.id)}>Delete</button>
+                     </div>
+                  })}
+                  </ul>
+
+                  {/* submit button */}
+               </div>
+               <button type="submit">Add Split</button>
+
+            </form>
          </div>
 
       );
@@ -148,8 +154,20 @@ class App extends Component {
    render() {
       return (
          <main>
+
             <this.createForm>
             </this.createForm>
+
+            <h3>Errors to deal with</h3>
+            <ul>
+               <li>decide the format of the select friend field? option, list??</li>
+               <li>after adding one user, it should set back to --select a friend--</li>
+               <li>Disable add button for no user selected</li>
+               <li>add an split equally option</li>
+               <li>if the sum of all is not equal to total, give an error and ask user to continue or not</li>
+               <li>if usr choses to continue then make the total sum equal to sum total</li>
+
+            </ul>
          </main>
       )
    }
