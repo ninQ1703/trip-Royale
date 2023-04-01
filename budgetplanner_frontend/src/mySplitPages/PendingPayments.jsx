@@ -65,10 +65,11 @@ class App extends Component {
          const requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ paid: true})
+            body: JSON.stringify({ paid: true, })
          };
          fetch(`http://127.0.0.1:8000/markpaid/${item.id}/`, requestOptions)
-            .then(response => response.json())
+            .then(response => response.json()).then(window.location.reload(true)
+            )
       }
       function DisplayPaidInfo(props) {
          if (props.item.paid == true) return <span> PAID</span>;

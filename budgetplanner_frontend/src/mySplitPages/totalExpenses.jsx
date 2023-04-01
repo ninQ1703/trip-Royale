@@ -17,8 +17,7 @@ class App extends Component {
 
   async componentDidMount() {
     try {
-      const user = 3;
-      const resUsers = await fetch(`http://127.0.0.1:8000/${users}/`);
+      const user = 1;
       const res1 = await fetch(`http://localhost:8000/mytotaldebt/${user}/`);
       const resDining = await fetch(`http://localhost:8000/mydebtbytag/${user}/dining/`);
       const resStay = await fetch(`http://localhost:8000/mydebtbytag/${user}/stay/`);
@@ -26,7 +25,6 @@ class App extends Component {
       const resShopping = await fetch(`http://localhost:8000/mydebtbytag/${user}/shopping/`);
       const resTravel = await fetch(`http://localhost:8000/mydebtbytag/${user}/travel/`);
       const resOthers = await fetch(`http://localhost:8000/mydebtbytag/${user}/others/`);
-      const users = await resUsers.json();
       const total = await res1.json();
       const dining = await resDining.json();
       const stay = await resStay.json();
@@ -42,7 +40,6 @@ class App extends Component {
         adventure,
         others,
         stay,
-        users,
       });
     } catch (e) {
       console.log(e);
@@ -53,14 +50,6 @@ class App extends Component {
     const total = this.state.total
     return total;
   }
-  renderUsers = () => {
-    const newUsers = this.state.users;
-    return newUsers.map(user => (
-      <p >
-        {user.first_name}
-      </p>
-    ));
-  };
   renderDining = () => { return this.state.dining };
   renderStay = () => this.state.stay;
   renderAdventure = () => this.state.adventure;
@@ -70,7 +59,7 @@ class App extends Component {
   render() {
     return (
       <main>
-        <p>TOTAL : {this.renderUsers()}</p>
+        <p>TOTAL : {this.renderTotal()}</p>
         <p>DINING : {this.renderDining()}</p>
         <p>STAY : {this.renderStay()}</p>
         <p>ADVENTURE : {this.renderAdventure()}</p>

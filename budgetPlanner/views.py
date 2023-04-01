@@ -55,6 +55,7 @@ class MyPendingSplitsByOwner(APIView):
             query = query.filter(owner = owner_id)
             serialized_data = SplitSerializer(query, many = True).data
             if serialized_data:
+                serialized_data[0]['paid'] = serialized_splitDistribution.data[i]['paid']
                 serialized_data[0]['amount'] = serialized_splitDistribution.data[i]['amount']
             serialized_class.extend(serialized_data)
 
@@ -112,6 +113,19 @@ class isPaid(APIView):
             isPaidfully = isPaidfully and serialized_data[i]['paid']
         return Response(isPaidfully)
     
+class isPaidbyOwner(APIView):
+    def get(self,request,debtor_id,owner_id):
+        query = SplitDistribution.objects.filter(debtor = debtor_id)
+        serialized_splitDistribution = SplitDistributionSerializer(query,many = True)
+        paid = True
+        for i in range(len(serialized_splitDistribution.data)):
+            query = Split.objects.filter(id = (serialized_splitDistribution.data[i]['split']))
+            query = query.filter(owner = owner_id)
+            if query:
+                paid = paid&serialized_splitDistribution.data[i]['paid']
+
+        return Response(paid)
+    
 
 # POST methods
 class CreateSplit(APIView):
@@ -132,7 +146,7 @@ class CreateSplitDistribution(APIView):
 
 class MarkPaid(APIView):
     def put(self,request,id):
-        query = SplitDistribution.objects.filter(id=id)
+        query = SplitDistribution.objects.get(id=id)
         serializer = PaidSerializer(query, data=request.data)
         if serializer.is_valid():
             serializer.save()
