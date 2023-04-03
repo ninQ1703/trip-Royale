@@ -63,9 +63,10 @@ class App extends Component {
 
       const handleSubmit = (e) => {
          e.preventDefault();
-         fetch(`http://127.0.0.1:8000/newsplit/`, {
+         fetch(`http://127.0.0.1:8000/1/newsplit/`, {
             method: 'POST',
             body: JSON.stringify({
+               trip: 1,
                tag: tag,
                owner: 1,
                amount: Tamount,
@@ -77,7 +78,7 @@ class App extends Component {
             .then((res) => res.json())
             .then((post) => {
                userSel.map((user) => {
-                  fetch(`http://127.0.0.1:8000/newsplitdist/`, {
+                  fetch(`http://127.0.0.1:8000/1/newsplitdist/`, {
                      method: 'POST',
                      body: JSON.stringify({
                         split: post.id,

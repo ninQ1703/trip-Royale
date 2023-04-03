@@ -13,7 +13,7 @@ class App extends Component {
 
    async componentDidMount() {
       try {
-         const resSplits = await fetch(`http://127.0.0.1:8000/mysplits/1/`);
+         const resSplits = await fetch(`http://127.0.0.1:8000/1/mysplits/`);
          const splits = await resSplits.json();
          this.setState({
             splits,
@@ -52,7 +52,7 @@ class App extends Component {
       const [splitlist, setsplitlist] = useState({ splitlist: [] });
       useEffect(() => {
          const fetchData = async () => {
-            const response = await fetch(`http://127.0.0.1:8000/mysplits/1/${props.id}/`)
+            const response = await fetch(`http://127.0.0.1:8000/1/mysplits/${props.id}/`)
             const newsplitList = await response.json()
             setsplitlist(newsplitList)
          };
@@ -67,7 +67,7 @@ class App extends Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ paid: true, })
          };
-         fetch(`http://127.0.0.1:8000/markpaid/${item.id}/`, requestOptions)
+         fetch(`http://127.0.0.1:8000/1/markpaid/${item.id}/`, requestOptions)
             .then(response => response.json()).then(window.location.reload(true)
             )
       }
@@ -108,7 +108,7 @@ class App extends Component {
 
       useEffect(() => {
          const fetchData = async () => {
-            const resPaid = await fetch(`http://127.0.0.1:8000/paid/${props.id}/`)
+            const resPaid = await fetch(`http://127.0.0.1:8000/1/paid/${props.id}/`)
             const newPaidInfo = await resPaid.json()
             setpaidinfo(newPaidInfo)
          };

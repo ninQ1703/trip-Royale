@@ -1,21 +1,11 @@
 from rest_framework import serializers
-from .models import User, Split, SplitDistribution, Todo
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('id','first_name','last_name')
-
-class UserIDSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('id',)
-
+from .models import Split, SplitDistribution
 
 class SplitSerializer(serializers.ModelSerializer):
     # owner = UserSerializer(read_only = True)
     class Meta:
         model = Split
-        fields = ('id','owner','amount','creation_date','tag')
+        fields = ('id','trip','owner','amount','creation_date','tag')
 
 
 class SplitDistributionSerializer(serializers.ModelSerializer):
@@ -25,10 +15,6 @@ class SplitDistributionSerializer(serializers.ModelSerializer):
         model = SplitDistribution
         fields = ('id','split','debtor','amount','paid')
 
-class TodoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Todo
-        fields = ('id' ,'title', 'description', 'completed')
 
 class PaidSerializer(serializers.ModelSerializer):
     class Meta:

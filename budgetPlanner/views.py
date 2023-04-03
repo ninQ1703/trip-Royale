@@ -3,8 +3,8 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import User, Split, SplitDistribution, Todo
-from .serializers import UserSerializer, SplitDistributionSerializer, SplitSerializer , UserIDSerializer, TodoSerializer, PaidSerializer
+from .models import Split, SplitDistribution
+from .serializers import SplitDistributionSerializer, SplitSerializer ,PaidSerializer
 from rest_framework import status
 from rest_framework import mixins
 from rest_framework import generics
@@ -13,32 +13,18 @@ from rest_framework.decorators import action
 from operator import itemgetter
 # Create your views here.
 
-# list of all users
-class getAllUsers(APIView):
-    def get(self, request):
-        query = User.objects.all()
-        serialized_class = UserSerializer(query, many = True)
-        serialized_data = serialized_class.data
-        serialized_data.sort(key=operator.itemgetter('first_name')) 
-        return Response(serialized_data)
-
-class getUser(APIView):
-    def get(self, request, user_id):
-        query = User.objects.filter(id = user_id)
-        serialized_class = UserSerializer(query, many = True)
-        return Response(serialized_class.data)
 
 # all splits created by me with details
 class MySplits(APIView):
-    def get(self, request, owner_id):
-        query = Split.objects.filter(owner = owner_id)
+    def get(self, request, me):
+        query = Split.objects.filter(owner = me)
         serialized_class = SplitSerializer(query, many = True)
         return Response(serialized_class.data)
 
 
 # get a single split of me
 class DetailedMySplits(APIView):
-    def get(self, request, owner_id, split_id):
+    def get(self, request, me, split_id):
         query = SplitDistribution.objects.filter(split = split_id)
         serialized_class = SplitDistributionSerializer(query, many =True)
         return Response(serialized_class.data)
@@ -46,8 +32,8 @@ class DetailedMySplits(APIView):
 
 #owner splits where I am involved 
 class MyPendingSplitsByOwner(APIView):
-    def get(self, request, debtor_id, owner_id):
-        query = SplitDistribution.objects.filter(debtor = debtor_id)
+    def get(self, request, me, owner_id):
+        query = SplitDistribution.objects.filter(debtor = me)
         serialized_splitDistribution = SplitDistributionSerializer(query,many = True)
         serialized_class = []
         for i in range(len(serialized_splitDistribution.data)):
@@ -63,8 +49,8 @@ class MyPendingSplitsByOwner(APIView):
 
 #how much I owe an owner
 class GetTotalDebt(APIView):
-    def get(self, request, debtor_id):
-        query = SplitDistribution.objects.filter(debtor = debtor_id)
+    def get(self, request, me):
+        query = SplitDistribution.objects.filter(debtor = me)
         serialized_data = SplitDistributionSerializer(query, many = True).data
         total = 0
         for i in range(len(serialized_data)):
@@ -74,8 +60,8 @@ class GetTotalDebt(APIView):
 
 
 class GetTotalDebtByTag(APIView):
-    def get(self, request, debtor_id, tag):
-        query = SplitDistribution.objects.filter(debtor = debtor_id)
+    def get(self, request, me, tag):
+        query = SplitDistribution.objects.filter(debtor = me)
         serialized_data = SplitDistributionSerializer(query, many = True).data
         total = 0
         for i in range(len(serialized_data)):
@@ -88,8 +74,8 @@ class GetTotalDebtByTag(APIView):
 
 
 class TotalByOwners(APIView):
-    def get(self, request, debtor_id, owner_id):
-        query = SplitDistribution.objects.filter(debtor = debtor_id)
+    def get(self, request, me, owner_id):
+        query = SplitDistribution.objects.filter(debtor = me)
         serialized_splitDistribution = SplitDistributionSerializer(query,many = True)
         total = 0
         for i in range(len(serialized_splitDistribution.data)):
@@ -100,12 +86,8 @@ class TotalByOwners(APIView):
 
         return Response(total) 
     
-class TodoView(viewsets.ModelViewSet):  
-    serializer_class = TodoSerializer   
-    queryset = Todo.objects.all()    
-
 class isPaid(APIView):
-    def get(self,request,split_id):
+    def get(self,request,me, split_id):
         query = SplitDistribution.objects.filter(split = split_id)
         serialized_data = PaidSerializer(query,many = True).data
         isPaidfully  = True
@@ -114,8 +96,8 @@ class isPaid(APIView):
         return Response(isPaidfully)
     
 class isPaidbyOwner(APIView):
-    def get(self,request,debtor_id,owner_id):
-        query = SplitDistribution.objects.filter(debtor = debtor_id)
+    def get(self,request,me,owner_id):
+        query = SplitDistribution.objects.filter(debtor = me)
         serialized_splitDistribution = SplitDistributionSerializer(query,many = True)
         paid = True
         for i in range(len(serialized_splitDistribution.data)):
@@ -129,7 +111,7 @@ class isPaidbyOwner(APIView):
 
 # POST methods
 class CreateSplit(APIView):
-    def post(self,request):
+    def post(self,request,me):
         serializer_obj = SplitSerializer(data = request.data)
         if serializer_obj.is_valid():
             serializer_obj.save()
@@ -137,7 +119,7 @@ class CreateSplit(APIView):
         return Response(serializer_obj.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class CreateSplitDistribution(APIView):
-    def post(self,request):
+    def post(self,request,me):
         serializer_obj = SplitDistributionSerializer(data = request.data)
         if serializer_obj.is_valid():
             serializer_obj.save()
@@ -145,7 +127,7 @@ class CreateSplitDistribution(APIView):
         return Response(serializer_obj.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class MarkPaid(APIView):
-    def put(self,request,id):
+    def put(self,request,me,id):
         query = SplitDistribution.objects.get(id=id)
         serializer = PaidSerializer(query, data=request.data)
         if serializer.is_valid():

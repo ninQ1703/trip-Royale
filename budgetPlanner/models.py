@@ -1,16 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from trip.models import User,Trip, TripUser
 # Create your models here.
-
-class User(models.Model):
-    gmail = models.CharField(max_length=250)
-    first_name = models.CharField(max_length=250)
-    last_name = models.CharField(max_length=250, blank = True)
-    profile = models.ImageField(default='profile.jfif')
-    def __str__(self):
-        return self.first_name
-
 
 class Split(models.Model):
     tag_options = (
@@ -21,6 +13,7 @@ class Split(models.Model):
         ('shopping','Shopping'),
         ('others','Others'),
     )
+    trip = models.ForeignKey(Trip, on_delete=models.CASCADE)
     creation_date = models.DateField(auto_now_add=True,)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     amount = models.FloatField(default=0.00)
@@ -28,17 +21,9 @@ class Split(models.Model):
     number_of_debtors = models.IntegerField(default=1)
 
 class SplitDistribution(models.Model):
-
     split = models.ForeignKey(Split,on_delete=models.CASCADE)
     debtor = models.ForeignKey( User, on_delete=models.CASCADE)
     amount = models.FloatField(default=0.00)   
     paid = models.BooleanField(default=False)
 
-class Todo(models.Model):
-   title = models.CharField(max_length=100)
-   description = models.TextField()
-   completed = models.BooleanField(default=False)
-
-   def _str_(self):
-     return self.title
    

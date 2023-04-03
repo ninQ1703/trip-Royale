@@ -7,172 +7,125 @@ class App extends Component {
    constructor(props) {
       super(props);
       this.state = {
+         users: [],
       };
+      this.getList = this.getList.bind(this);
    }
 
-   createForm = () => {
-      const [tag, setTag] = useState('others');
-      const [Tamount, setTAmount] = useState("0");
-      const [userAvail, setUserAvail] = useState([]);
-      const [userSel, setUserSel] = useState([]);
-      const [selUserIn, setSelUserIn] = useState(null);
+   async componentDidMount() {
+      try {
+         const resUsers = await fetch(`http://127.0.0.1:8000/users/`);
+         const users = await resUsers.json();
+         this.setState({
+            users,
+         });
+      } catch (e) {
+         console.log(e);
+      }
+   }
 
+   displayPaidInfo = (props) => {
+      if (props.paid == true) return <div> PAID </div>
+      else return <div> UNPAID</div>
+   }
+
+
+   //function to display the list of pending payments
+   getList = (props) => {
+      const [list, setlist] = useState({ list: [] });
       useEffect(() => {
          const fetchData = async () => {
-            const resUsers = await fetch(`http://127.0.0.1:8000/users/`);
-            let users = await resUsers.json();
-            users.forEach((user) => { if (user.id === 1) { user.first_name = "you"; user.last_name = ""; } user.amount = "0" })
-            setUserAvail(users.filter((user) => user.id !== 1));
-            setUserSel(users.filter((user) => user.id === 1));
+            const response = await fetch(`http://127.0.0.1:8000/1/mydebt/${props.id}/`)
+            const newList = await response.json()
+            setlist(newList)
          };
+
          fetchData();
       }, [])
-      const AddUser = () => {
-         if (selUserIn == null || selUserIn == undefined) return;
-         const updateUserAvail = userAvail.filter((user) => user.id != selUserIn);
-         const newUser = userAvail.filter((user) => user.id == selUserIn);
-         setUserAvail(updateUserAvail);
-         var updateUserSel = [
-            ...userSel,
-            newUser[0]
-         ]
-         setUserSel(updateUserSel);
+
+      if (list.length && props.permit) {
+         console.log(list)
+         return list.map(item => { console.log(item.paid); return <div>{item.amount} {item.creation_date} <this.displayPaidInfo paid={item.paid}></this.displayPaidInfo></div> });
+      } else {
+         return null;
       }
+   }
 
-      const RemoveUser = (id) => {
-         if (id == null) return;
-         const updateUserSel = userSel.filter((user) => user.id != id);
-         let newUser = userSel.filter((user) => user.id == id);
-         newUser.amount = 0;
-         setUserSel(updateUserSel);
-         let updateUserAvail = [
-            ...userAvail,
-            newUser[0]
-         ]
-         updateUserAvail = [...updateUserAvail].sort((a, b) =>
-            a.first_name + a.last_name > b.first_name + b.last_name ? 1 : -1,
-         );
-         setUserAvail(updateUserAvail);
+   //function to expand view on button click
+   getDisplay = (props) => {
+      const [display, setDislay] = useState(false);
+      function changeDisplay() {
+         setDislay(!display)
       }
+      return <div>
+         <button onClick={changeDisplay}>click here</button>
+         <this.getList id={props.id} permit={display}></this.getList>
+      </div>
 
-      const setAmount = (id, amount) => {
-         let updateUserSel = [...userSel]
-         updateUserSel.map((user) => { if (user.id == id) { user.amount = amount } });
-         setUserSel(updateUserSel);
-      }
+   }
 
-      const handleSubmit = (e) => {
-         e.preventDefault();
-         fetch(`http://127.0.0.1:8000/newsplit/`, {
-            method: 'POST',
-            body: JSON.stringify({
-               tag: tag,
-               owner: 1,
-               amount: Tamount,
-            }),
-            headers: {
-               'Content-type': 'application/json; charset=UTF-8',
-            },
-         })
-            .then((res) => res.json())
-            .then((post) => {
-               userSel.map((user) => {
-                  fetch(`http://127.0.0.1:8000/newsplitdist/`, {
-                     method: 'POST',
-                     body: JSON.stringify({
-                        split: post.id,
-                        debtor: user.id,
-                        amount: user.amount,
-                     }),
-                     headers: {
-                        'Content-type': 'application/json; charset=UTF-8',
-                     },
-                  })
-               })
+   paidinfo = (props) => {
+      console.log("hi")
+      const [paid, setPaid] = useState(false)
+      useEffect(() => {
+         const fetchData = async () => {
+            const response = await fetch(`http://127.0.0.1:8000/1/ispaidbyowner/${props.id}/`)
+            const newPaid = await response.json()
+            setPaid(newPaid)
+         };
 
-            })
-            .then((res) => res.json())
-            .catch((err) => {
-               console.log(err.message);
-            });
-      };
-      return (
+         fetchData();
+      }, [])
+      console.log(paid)
+      return <this.displayPaidInfo paid={paid}></this.displayPaidInfo>
+   }
+
+   total = (props) => {
+      const [total, setTotal] = useState('0')
+      useEffect(() => {
+         const fetchData = async () => {
+            const response = await fetch(`http://127.0.0.1:8000/1/mydebtbyowner/${props.id}/`)
+            const newTotal = await response.json()
+            setTotal(newTotal)
+         };
+
+         fetchData();
+      }, [])
+      return <p>{total}</p>
+   }
+
+   //function to diplay all users
+   renderUsers = (props) => {
+      const newUsers = this.state.users;
+
+      return newUsers.filter(user => user.id != 6).map(user => (
          <div>
-
-            <form onSubmit={handleSubmit}>
-
-               {/* select a tag field */}
-               <select onChange={(event) => { setTag(event.target.value) }}>
-                  <option disabled selected value >--select a tag--</option>
-                  <option value="travel">travel</option>
-                  <option value="shopping">shopping</option>
-                  <option value="stay">stay</option>
-                  <option value="adventure">adventure</option>
-                  <option value="dining">dining</option>
-                  <option value="others">others</option>
-               </select>
-
-               {/* enter total amount */}
-               <input type="number" min="0" step="1" onChange={(event) => setTAmount(event.target.value)} /><br></br>
-
-               {/* select a user to be added */}
-               <div>
-                  <select onChange={(event) => setSelUserIn(event.target.value)}>
-                     <option disabled selected value="notAllowed">--select a friend--</option>
-                     {userAvail.map((user) =>
-                        <option value={user.id} >
-                           {user.first_name} {user.last_name}
-                        </option>)}
-                  </select>
-
-                  {/* add user button */}
-                  <button type="button" onClick={() => AddUser()}>ADD</button>
-
-                  {/* added users */}
-                  <ul>{userSel.map((user) => {
-                     return <div>
-                        <li>{user.first_name} {user.last_name}
-                           <input type="number" min="0.00" /*pattern='d\+\.\d\d$'*/ step="1" defaultValue={user.amount} onChange={(event) => { setAmount(user.id, event.target.value); }} />
-                           {/* {user.amount} */}
-                        </li>
-                        <button type="button" onClick={() => RemoveUser(user.id)}>Delete</button>
-                     </div>
-                  })}
-                  </ul>
-
-                  {/* submit button */}
-               </div>
-               <button type="submit">Add Split</button>
-
-            </form>
+            <p >
+               {user.first_name}
+            </p>
+            <this.total id={user.id}></this.total>
+            <this.paidinfo id={user.id}></this.paidinfo>
+            <this.getDisplay id={user.id}></this.getDisplay>
          </div>
-
-      );
+      ));
    };
+
 
 
    render() {
       return (
          <main>
-
-            <this.createForm>
-            </this.createForm>
-
-            <h3>Errors to deal with</h3>
-            <ul>
-               <li>decide the format of the select friend field? option, list??</li>
-               <li>after adding one user, it should set back to --select a friend--</li>
-               <li>Disable add button for no user selected</li>
-               <li>add an split equally option</li>
-               <li>if the sum of all is not equal to total, give an error and ask user to continue or not</li>
-               <li>if usr choses to continue then make the total sum equal to sum total</li>
-
-            </ul>
+            <h4>
+               <ul>
+                  <li>Date format</li>
+                  <li>Concole.log prints everything two times</li>
+               </ul>
+            </h4>
+            <this.renderUsers>
+            </this.renderUsers>
          </main>
       )
    }
 }
 
 export default App;
-
-
