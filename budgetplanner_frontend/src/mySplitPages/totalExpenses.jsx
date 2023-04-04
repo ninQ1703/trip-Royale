@@ -18,13 +18,14 @@ class App extends Component {
   async componentDidMount() {
     try {
       const user = 1;
-      const res1 = await fetch(`http://localhost:8000/${user}/mytotaldebt/`);
-      const resDining = await fetch(`http://localhost:8000/${user}/mydebtbytag/dining/`);
-      const resStay = await fetch(`http://localhost:8000/${user}/mydebtbytag/stay/`);
-      const resAdventure = await fetch(`http://localhost:8000/${user}/mydebtbytag/adventure/`);
-      const resShopping = await fetch(`http://localhost:8000/${user}/mydebtbytag/shopping/`);
-      const resTravel = await fetch(`http://localhost:8000/${user}/mydebtbytag/travel/`);
-      const resOthers = await fetch(`http://localhost:8000/${user}/mydebtbytag/others/`);
+      const trip = 1;
+      const res1 = await fetch(`http://localhost:8000/${user}/${trip}/mytotaldebt/`);
+      const resDining = await fetch(`http://localhost:8000/${user}/${trip}/mydebtbytag/dining/`);
+      const resStay = await fetch(`http://localhost:8000/${user}/${trip}/mydebtbytag/stay/`);
+      const resAdventure = await fetch(`http://localhost:8000/${user}/${trip}/mydebtbytag/adventure/`);
+      const resShopping = await fetch(`http://localhost:8000/${user}/${trip}/mydebtbytag/shopping/`);
+      const resTravel = await fetch(`http://localhost:8000/${user}/${trip}/mydebtbytag/travel/`);
+      const resOthers = await fetch(`http://localhost:8000/${user}/${trip}/mydebtbytag/others/`);
       const total = await res1.json();
       const dining = await resDining.json();
       const stay = await resStay.json();

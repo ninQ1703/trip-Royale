@@ -16,15 +16,15 @@ from operator import itemgetter
 
 # all splits created by me with details
 class MySplits(APIView):
-    def get(self, request, me):
-        query = Split.objects.filter(owner = me)
+    def get(self, request, me, trip_id):
+        query = Split.objects.filter(owner = me).filter(trip = trip_id)
         serialized_class = SplitSerializer(query, many = True)
         return Response(serialized_class.data)
 
 
 # get a single split of me
 class DetailedMySplits(APIView):
-    def get(self, request, me, split_id):
+    def get(self, request, me, trip_id,split_id):
         query = SplitDistribution.objects.filter(split = split_id)
         serialized_class = SplitDistributionSerializer(query, many =True)
         return Response(serialized_class.data)
@@ -32,13 +32,13 @@ class DetailedMySplits(APIView):
 
 #owner splits where I am involved 
 class MyPendingSplitsByOwner(APIView):
-    def get(self, request, me, owner_id):
+    def get(self, request, me, trip_id, owner_id):
         query = SplitDistribution.objects.filter(debtor = me)
         serialized_splitDistribution = SplitDistributionSerializer(query,many = True)
         serialized_class = []
         for i in range(len(serialized_splitDistribution.data)):
             query = Split.objects.filter(id = (serialized_splitDistribution.data[i]['split']))
-            query = query.filter(owner = owner_id)
+            query = query.filter(owner = owner_id).filter(trip = trip_id)
             serialized_data = SplitSerializer(query, many = True).data
             if serialized_data:
                 serialized_data[0]['paid'] = serialized_splitDistribution.data[i]['paid']
@@ -49,37 +49,41 @@ class MyPendingSplitsByOwner(APIView):
 
 #how much I owe an owner
 class GetTotalDebt(APIView):
-    def get(self, request, me):
+    def get(self, request, me, trip_id):
         query = SplitDistribution.objects.filter(debtor = me)
         serialized_data = SplitDistributionSerializer(query, many = True).data
         total = 0
         for i in range(len(serialized_data)):
-            total += serialized_data[i]['amount']
+            query = Split.objects.filter(id = (serialized_data[i]['split']))
+            query = query.filter(trip=trip_id)
+            serialized_obj = SplitSerializer(query, many = True).data
+            if serialized_obj:
+                total += serialized_data[i]['amount']
     
         return Response(total)
 
 
 class GetTotalDebtByTag(APIView):
-    def get(self, request, me, tag):
+    def get(self, request, me, trip_id, tag):
         query = SplitDistribution.objects.filter(debtor = me)
         serialized_data = SplitDistributionSerializer(query, many = True).data
         total = 0
         for i in range(len(serialized_data)):
-            query = Split.objects.filter(id = serialized_data[i]['split'])
+            query = Split.objects.filter(id = serialized_data[i]['split']).filter(tag = tag).filter(trip = trip_id)
             Splitserialized_data = SplitSerializer(query, many = True).data
-            if tag==Splitserialized_data[0]['tag']:
+            if Splitserialized_data:
                 total += serialized_data[i]['amount']
     
         return Response(total)
 
 
 class TotalByOwners(APIView):
-    def get(self, request, me, owner_id):
+    def get(self, request, me, trip_id, owner_id):
         query = SplitDistribution.objects.filter(debtor = me)
         serialized_splitDistribution = SplitDistributionSerializer(query,many = True)
         total = 0
         for i in range(len(serialized_splitDistribution.data)):
-            query = Split.objects.filter(id = (serialized_splitDistribution.data[i]['split']))
+            query = Split.objects.filter(id = (serialized_splitDistribution.data[i]['split'])).filter(trip = trip_id)
             query = query.filter(owner = owner_id)
             if query:
                 total += serialized_splitDistribution.data[i]['amount']
@@ -87,7 +91,7 @@ class TotalByOwners(APIView):
         return Response(total) 
     
 class isPaid(APIView):
-    def get(self,request,me, split_id):
+    def get(self,request,me, trip_id, split_id):
         query = SplitDistribution.objects.filter(split = split_id)
         serialized_data = PaidSerializer(query,many = True).data
         isPaidfully  = True
@@ -96,13 +100,13 @@ class isPaid(APIView):
         return Response(isPaidfully)
     
 class isPaidbyOwner(APIView):
-    def get(self,request,me,owner_id):
+    def get(self,request,me, trip_id,owner_id):
         query = SplitDistribution.objects.filter(debtor = me)
         serialized_splitDistribution = SplitDistributionSerializer(query,many = True)
         paid = True
         for i in range(len(serialized_splitDistribution.data)):
             query = Split.objects.filter(id = (serialized_splitDistribution.data[i]['split']))
-            query = query.filter(owner = owner_id)
+            query = query.filter(owner = owner_id).filter(trip = trip_id)
             if query:
                 paid = paid&serialized_splitDistribution.data[i]['paid']
 
@@ -111,7 +115,7 @@ class isPaidbyOwner(APIView):
 
 # POST methods
 class CreateSplit(APIView):
-    def post(self,request,me):
+    def post(self,request,me, trip_id):
         serializer_obj = SplitSerializer(data = request.data)
         if serializer_obj.is_valid():
             serializer_obj.save()
@@ -119,7 +123,7 @@ class CreateSplit(APIView):
         return Response(serializer_obj.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class CreateSplitDistribution(APIView):
-    def post(self,request,me):
+    def post(self,request,me, trip_id):
         serializer_obj = SplitDistributionSerializer(data = request.data)
         if serializer_obj.is_valid():
             serializer_obj.save()
@@ -127,7 +131,7 @@ class CreateSplitDistribution(APIView):
         return Response(serializer_obj.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class MarkPaid(APIView):
-    def put(self,request,me,id):
+    def put(self,request,me, trip_id,id):
         query = SplitDistribution.objects.get(id=id)
         serializer = PaidSerializer(query, data=request.data)
         if serializer.is_valid():

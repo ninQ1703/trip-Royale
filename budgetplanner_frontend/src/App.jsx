@@ -1,57 +1,101 @@
 import React, { Component } from "react"
 import { useEffect, useState } from "react"
-
-
+// import { format } from 'date-fns'
 
 class App extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         users: [],
+         splits: [],
+         user: 0,
+         trip: 0,
       };
       this.getList = this.getList.bind(this);
    }
 
    async componentDidMount() {
       try {
-         const resUsers = await fetch(`http://127.0.0.1:8000/users/`);
-         const users = await resUsers.json();
+         const user = 2;
+         const trip = 2;
+         const resSplits = await fetch(`http://127.0.0.1:8000/${user}/${trip}/mysplits/`);
+         const splits = await resSplits.json();
          this.setState({
-            users,
+            splits,
+            user,
+            trip,
          });
       } catch (e) {
          console.log(e);
       }
    }
 
-   displayPaidInfo = (props) => {
-      if (props.paid == true) return <div> PAID </div>
-      else return <div> UNPAID</div>
-   }
+   //get debtor of a particular split distribution
+   getUser = (props) => {
+      const [user, setUser] = useState({ user: [] });
 
-
-   //function to display the list of pending payments
-   getList = (props) => {
-      const [list, setlist] = useState({ list: [] });
       useEffect(() => {
          const fetchData = async () => {
-            const response = await fetch(`http://127.0.0.1:8000/1/mydebt/${props.id}/`)
-            const newList = await response.json()
-            setlist(newList)
+            const response = await fetch(`http://127.0.0.1:8000/users/${props.id}/`);
+            const newUser = await response.json();
+            if (newUser[0].id == this.state.user) {
+               newUser[0].first_name = "you"
+               newUser[0].last_name = ""
+            }
+            setUser(newUser);
          };
-
          fetchData();
       }, [])
 
-      if (list.length && props.permit) {
-         console.log(list)
-         return list.map(item => { console.log(item.paid); return <div>{item.amount} {item.creation_date} <this.displayPaidInfo paid={item.paid}></this.displayPaidInfo></div> });
+      if (user.length) {
+         return <span>{user[0].first_name} {user[0].last_name}</span>
       } else {
          return null;
       }
    }
 
-   //function to expand view on button click
+   //function to display the list of split distribution
+   getList = (props) => {
+      const [splitlist, setsplitlist] = useState({ splitlist: [] });
+      useEffect(() => {
+         const fetchData = async () => {
+            const response = await fetch(`http://127.0.0.1:8000/${this.state.user}/${this.state.trip}/mysplits/${props.id}/`)
+            const newsplitList = await response.json()
+            setsplitlist(newsplitList)
+         };
+
+         fetchData();
+      }, [])
+
+
+      const handleClick = (item) => {
+         const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ paid: true, })
+         };
+         fetch(`http://127.0.0.1:8000/${this.state.user}/${this.state.trip}/markpaid/${item.id}/`, requestOptions)
+            .then(response => response.json()).then(window.location.reload(true)
+            )
+      }
+      function DisplayPaidInfo(props) {
+         if (props.item.paid == true) return <span> PAID</span>;
+         else return <button onClick={(event) => handleClick(props.item)}> UNPAID</button>;
+      }
+      if (splitlist.length && props.permit) {
+         console.log(splitlist)
+         return splitlist.map(item => (
+            <div>
+               <this.getUser id={item.debtor}></this.getUser>  {item.amount}
+               <DisplayPaidInfo item={item}></DisplayPaidInfo>
+
+            </div>));
+      } else {
+         return null;
+      }
+
+   }
+
+   //function to expand view on button click 
    getDisplay = (props) => {
       const [display, setDislay] = useState(false);
       function changeDisplay() {
@@ -64,65 +108,47 @@ class App extends Component {
 
    }
 
-   paidinfo = (props) => {
-      console.log("hi")
-      const [paid, setPaid] = useState(false)
+   //paid info of a single split
+   getPaidInfo = (props) => {
+      const [paidInfo, setpaidinfo] = useState(false);
+
       useEffect(() => {
          const fetchData = async () => {
-            const response = await fetch(`http://127.0.0.1:8000/1/ispaidbyowner/${props.id}/`)
-            const newPaid = await response.json()
-            setPaid(newPaid)
+            const resPaid = await fetch(`http://127.0.0.1:8000/${this.state.user}/${this.state.trip}/paid/${props.id}/`)
+            const newPaidInfo = await resPaid.json()
+            setpaidinfo(newPaidInfo)
          };
-
          fetchData();
       }, [])
-      console.log(paid)
-      return <this.displayPaidInfo paid={paid}></this.displayPaidInfo>
+      if (paidInfo) return <span>PAID</span>
+      else return <span>UNPAID</span>
    }
 
-   total = (props) => {
-      const [total, setTotal] = useState('0')
-      useEffect(() => {
-         const fetchData = async () => {
-            const response = await fetch(`http://127.0.0.1:8000/1/mydebtbyowner/${props.id}/`)
-            const newTotal = await response.json()
-            setTotal(newTotal)
-         };
+   //function to diplay all my splits
+   renderSplits = (props) => {
+      const newSplits = this.state.splits;
 
-         fetchData();
-      }, [])
-      return <p>{total}</p>
-   }
-
-   //function to diplay all users
-   renderUsers = (props) => {
-      const newUsers = this.state.users;
-
-      return newUsers.filter(user => user.id != 6).map(user => (
+      return newSplits.map(split => (
          <div>
-            <p >
-               {user.first_name}
-            </p>
-            <this.total id={user.id}></this.total>
-            <this.paidinfo id={user.id}></this.paidinfo>
-            <this.getDisplay id={user.id}></this.getDisplay>
+            <span >
+               {split.amount} {split.creation_date} <this.getPaidInfo id={split.id}></this.getPaidInfo>
+            </span>
+            <this.getDisplay id={split.id}></this.getDisplay>
          </div>
       ));
    };
 
 
-
    render() {
       return (
          <main>
-            <h4>
-               <ul>
-                  <li>Date format</li>
-                  <li>Concole.log prints everything two times</li>
-               </ul>
-            </h4>
-            <this.renderUsers>
-            </this.renderUsers>
+            <h4><ul>
+               <li>make default paid value of 'you' as paid</li>
+               <li>date not in desired format</li>
+
+            </ul></h4>
+            <this.renderSplits>
+            </this.renderSplits>
          </main>
       )
    }

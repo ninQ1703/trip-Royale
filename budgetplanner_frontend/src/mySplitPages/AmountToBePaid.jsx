@@ -8,16 +8,22 @@ class App extends Component {
       super(props);
       this.state = {
          users: [],
+         user: 0,
+         trip: 0,
       };
       this.getList = this.getList.bind(this);
    }
 
    async componentDidMount() {
       try {
+         const user = 1;
+         const trip = 1;
          const resUsers = await fetch(`http://127.0.0.1:8000/users/`);
          const users = await resUsers.json();
          this.setState({
             users,
+            user,
+            trip,
          });
       } catch (e) {
          console.log(e);
@@ -35,7 +41,7 @@ class App extends Component {
       const [list, setlist] = useState({ list: [] });
       useEffect(() => {
          const fetchData = async () => {
-            const response = await fetch(`http://127.0.0.1:8000/1/mydebt/${props.id}/`)
+            const response = await fetch(`http://127.0.0.1:8000/${this.state.user}/${this.state.trip}/mydebt/${props.id}/`)
             const newList = await response.json()
             setlist(newList)
          };
@@ -69,7 +75,7 @@ class App extends Component {
       const [paid, setPaid] = useState(false)
       useEffect(() => {
          const fetchData = async () => {
-            const response = await fetch(`http://127.0.0.1:8000/1/ispaidbyowner/${props.id}/`)
+            const response = await fetch(`http://127.0.0.1:8000/${this.state.user}/${this.state.trip}/ispaidbyowner/${props.id}/`)
             const newPaid = await response.json()
             setPaid(newPaid)
          };
@@ -84,7 +90,7 @@ class App extends Component {
       const [total, setTotal] = useState('0')
       useEffect(() => {
          const fetchData = async () => {
-            const response = await fetch(`http://127.0.0.1:8000/1/mydebtbyowner/${props.id}/`)
+            const response = await fetch(`http://127.0.0.1:8000/${this.state.user}/${this.state.trip}/mydebtbyowner/${props.id}/`)
             const newTotal = await response.json()
             setTotal(newTotal)
          };
@@ -98,7 +104,7 @@ class App extends Component {
    renderUsers = (props) => {
       const newUsers = this.state.users;
 
-      return newUsers.filter(user => user.id != 6).map(user => (
+      return newUsers.filter(user => user.id != this.state.user).map(user => (
          <div>
             <p >
                {user.first_name}

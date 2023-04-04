@@ -7,6 +7,8 @@ class App extends Component {
    constructor(props) {
       super(props);
       this.state = {
+         user: 3,
+         trip: 2,
       };
    }
 
@@ -21,9 +23,9 @@ class App extends Component {
          const fetchData = async () => {
             const resUsers = await fetch(`http://127.0.0.1:8000/users/`);
             let users = await resUsers.json();
-            users.forEach((user) => { if (user.id === 1) { user.first_name = "you"; user.last_name = ""; } user.amount = "0" })
-            setUserAvail(users.filter((user) => user.id !== 1));
-            setUserSel(users.filter((user) => user.id === 1));
+            users.forEach((user) => { if (user.id === this.state.user) { user.first_name = "you"; user.last_name = ""; } user.amount = "0" })
+            setUserAvail(users.filter((user) => user.id !== this.state.user));
+            setUserSel(users.filter((user) => user.id === this.state.user));
          };
          fetchData();
       }, [])
@@ -63,12 +65,12 @@ class App extends Component {
 
       const handleSubmit = (e) => {
          e.preventDefault();
-         fetch(`http://127.0.0.1:8000/1/newsplit/`, {
+         fetch(`http://127.0.0.1:8000/${this.state.user}/${this.state.trip}/newsplit/`, {
             method: 'POST',
             body: JSON.stringify({
-               trip: 1,
+               trip: this.state.trip,
                tag: tag,
-               owner: 1,
+               owner: this.state.user,
                amount: Tamount,
             }),
             headers: {
@@ -78,7 +80,7 @@ class App extends Component {
             .then((res) => res.json())
             .then((post) => {
                userSel.map((user) => {
-                  fetch(`http://127.0.0.1:8000/1/newsplitdist/`, {
+                  fetch(`http://127.0.0.1:8000/${this.state.user}/${this.state.trip}/newsplitdist/`, {
                      method: 'POST',
                      body: JSON.stringify({
                         split: post.id,
