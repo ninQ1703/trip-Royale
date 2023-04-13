@@ -15,6 +15,7 @@ const ImageUpload = (props) => {
       function (error, result) {
         if (!error && result.event === "success") {
           props.onImageUpload(result.info.public_id);
+          console.log(result.info.url);
         }
       }
     );
