@@ -66,7 +66,6 @@ class App extends Component {
          fetchData();
       }, [])
 
-
       const handleClick = (item) => {
          const requestOptions = {
             method: 'PUT',
