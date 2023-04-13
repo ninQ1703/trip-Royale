@@ -15,8 +15,8 @@ class App extends Component {
 
    async componentDidMount() {
       try {
-         const user = 2;
-         const trip = 2;
+         const user = 3;
+         const trip = 1;
          const resSplits = await fetch(`http://127.0.0.1:8000/${user}/${trip}/mysplits/`);
          const splits = await resSplits.json();
          this.setState({
@@ -38,8 +38,7 @@ class App extends Component {
             const response = await fetch(`http://127.0.0.1:8000/users/${props.id}/`);
             const newUser = await response.json();
             if (newUser[0].id == this.state.user) {
-               newUser[0].first_name = "you"
-               newUser[0].last_name = ""
+               newUser[0].Name = "you"
             }
             setUser(newUser);
          };
@@ -47,7 +46,7 @@ class App extends Component {
       }, [])
 
       if (user.length) {
-         return <span>{user[0].first_name} {user[0].last_name}</span>
+         return <span>{user[0].Name}</span>
       } else {
          return null;
       }

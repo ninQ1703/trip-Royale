@@ -26,7 +26,8 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-
+class hi(models.Model):
+    nam = models.CharField(max_length=23)
 
 
 

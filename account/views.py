@@ -7,6 +7,8 @@ from django.contrib.auth.hashers import make_password
 from account.renderers import UserRenderer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
+import operator
+from operator import itemgetter
 
 def get_tokens_for_user(user): #generates tokens manually
     refresh = RefreshToken.for_user(user)
@@ -71,3 +73,18 @@ class UserPasswordResetView(APIView):
     serializer = UserPasswordResetSerializer(data=request.data, context={'uid':uid, 'token':token})
     serializer.is_valid(raise_exception=True)
     return Response({'msg':'Password Reset Successfully'}, status=status.HTTP_200_OK)
+  
+  # list of all users
+class getAllUsers(APIView):
+    def get(self, request):
+        query = User.objects.all()
+        serialized_class = UserProfileSerializer(query, many = True)
+        serialized_data = serialized_class.data
+        serialized_data.sort(key=operator.itemgetter('Name')) 
+        return Response(serialized_data)
+
+class getUser(APIView):
+    def get(self, request, user_id):
+        query = User.objects.filter(id = user_id)
+        serialized_class =UserProfileSerializer(query, many = True)
+        return Response(serialized_class.data)

@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
-from trip.models import User,Trip, TripUser
+from trip.models import Trip, TripUser
+from account.models import User
 # Create your models here.
 
 class Split(models.Model):

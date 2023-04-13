@@ -107,7 +107,7 @@ class App extends Component {
       return newUsers.filter(user => user.id != this.state.user).map(user => (
          <div>
             <p >
-               {user.first_name}
+               {user.Name}
             </p>
             <this.total id={user.id}></this.total>
             <this.paidinfo id={user.id}></this.paidinfo>

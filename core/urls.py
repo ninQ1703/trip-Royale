@@ -20,5 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('',include('budgetPlanner.urls',namespace='budgetPlanner')),
     # path('',include('trip.urls',namespace='trip')),
-    path('user/',include('account.urls',namespace='accounts'))
+    path('',include('account.urls',namespace='account'))
 ]

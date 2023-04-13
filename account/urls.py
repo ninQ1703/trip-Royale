@@ -3,6 +3,8 @@ from account.views import *
 app_name = 'account'
 
 urlpatterns = [
+    path('users/', getAllUsers.as_view(),name='allusers'),   #will go to trip app
+    path('users/<int:user_id>/',getUser.as_view(), name="getuser"),#global
     path('register/',UserRegistrationView.as_view(), name='register'),
     path('login/',UserLoginView.as_view(),name="login"),
     path('profile/',UserProfileView.as_view(),name='profile'),
