@@ -13,7 +13,28 @@ const ImageUpload = (props) => {
         uploadPreset: props.upload_preset,
         tags: ["myname"],
         maxImageWidth: 600,
-        sources: ["local", "url", "camera"]
+        sources: ["local", "url", "camera","dropbox","image_search","facebook","instagram","shutterstock","gettyimages","istock","unsplash","google_drive"],
+        styles:{
+          palette: {
+            window: "#E28616",
+            windowBorder: "black",
+            tabIcon: "#FFFFFF",
+            menuIcons: "#FFFFFF",
+            textDark: "#000000",
+            textLight: "#FFFFFF",
+            link:  "#FF900B",
+            action:  "#FF620C",
+            inactiveTabIcon: "#FFFFFF",
+            error: "#F44235",
+            inProgress: "#0078FF",
+            complete: "#20B832",
+            sourceBg: "#FFFFFF"
+          },
+          frame: {
+            background: "#0E2F5B99"
+          }
+          
+        },
       },
       function (error, result) {
         if (!error && result.event === "success") {

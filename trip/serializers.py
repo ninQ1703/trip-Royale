@@ -1,13 +1,9 @@
 from rest_framework import serializers
-# from .models import User, TripUser
+from .models import Trip
 
-# class UserSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = User
-#         fields = ('id','first_name','last_name')
-
-# class UserIDSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = User
-#         fields = ('id',)
-
+class TripSerializer(serializers.ModelSerializer):
+    # leader = UserSerializer()
+    # attendees = UserSerializer(many=True)
+    class Meta:
+        model = Trip
+        fields = "__all__" 
