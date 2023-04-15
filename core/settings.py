@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'budgetPlanner',
     'account',
+    'photos',
     'trip',
     'corsheaders',
     'rest_framework',

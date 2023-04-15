@@ -1,15 +1,10 @@
 import './App.css';
-import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import { useState } from 'react';
 import { Helmet } from "react-helmet"
 import * as React from 'react';
-import CldGallery from "./components/CldGallery";
+import CldGallery from "./photos_frontend/components/CldGallery";
 import { Cloudinary } from "@cloudinary/url-gen";
-import ImageUpload from "./components/ImageUpload";
-import { Collapse } from 'react-collapse';
-import ye from './Credit_card_bro.png'
+import ImageUpload from "./photos_frontend/components/ImageUpload";
 
 function App() {
     const [imagesUploadedList, setImagesUploadedList] = useState([]);

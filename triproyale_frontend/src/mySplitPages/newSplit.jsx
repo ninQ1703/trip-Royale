@@ -7,8 +7,8 @@ class App extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         user: 1,
-         trip: 1,
+         user: 3,
+         trip: 2,
       };
    }
 
@@ -23,7 +23,7 @@ class App extends Component {
          const fetchData = async () => {
             const resUsers = await fetch(`http://127.0.0.1:8000/users/`);
             let users = await resUsers.json();
-            users.forEach((user) => { if (user.id === this.state.user) { user.Name = "you"; } user.amount = "0" })
+            users.forEach((user) => { if (user.id === this.state.user) { user.first_name = "you"; user.last_name = ""; } user.amount = "0" })
             setUserAvail(users.filter((user) => user.id !== this.state.user));
             setUserSel(users.filter((user) => user.id === this.state.user));
          };
@@ -52,7 +52,7 @@ class App extends Component {
             newUser[0]
          ]
          updateUserAvail = [...updateUserAvail].sort((a, b) =>
-            a.Name> b.Name? 1 : -1,
+            a.first_name + a.last_name > b.first_name + b.last_name ? 1 : -1,
          );
          setUserAvail(updateUserAvail);
       }
@@ -68,7 +68,7 @@ class App extends Component {
          fetch(`http://127.0.0.1:8000/${this.state.user}/${this.state.trip}/newsplit/`, {
             method: 'POST',
             body: JSON.stringify({
-               trip: this.state.trip,
+               trip: this.state.trip,        
                tag: tag,
                owner: this.state.user,
                amount: Tamount,
@@ -124,7 +124,7 @@ class App extends Component {
                      <option disabled selected value="notAllowed">--select a friend--</option>
                      {userAvail.map((user) =>
                         <option value={user.id} >
-                           {user.Name}
+                           {user.first_name} {user.last_name}
                         </option>)}
                   </select>
 
@@ -134,7 +134,7 @@ class App extends Component {
                   {/* added users */}
                   <ul>{userSel.map((user) => {
                      return <div>
-                        <li>{user.Name}
+                        <li>{user.first_name} {user.last_name}
                            <input type="number" min="0.00" /*pattern='d\+\.\d\d$'*/ step="1" defaultValue={user.amount} onChange={(event) => { setAmount(user.id, event.target.value); }} />
                            {/* {user.amount} */}
                         </li>
