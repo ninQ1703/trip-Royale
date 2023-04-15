@@ -70,35 +70,7 @@ class App extends Component {
 
    }
 
-   paidinfo = (props) => {
-      console.log("hi")
-      const [paid, setPaid] = useState(false)
-      useEffect(() => {
-         const fetchData = async () => {
-            const response = await fetch(`http://127.0.0.1:8000/${this.state.user}/${this.state.trip}/ispaidbyowner/${props.id}/`)
-            const newPaid = await response.json()
-            setPaid(newPaid)
-         };
-
-         fetchData();
-      }, [])
-      console.log(paid)
-      return <this.displayPaidInfo paid={paid}></this.displayPaidInfo>
-   }
-
-   total = (props) => {
-      const [total, setTotal] = useState('0')
-      useEffect(() => {
-         const fetchData = async () => {
-            const response = await fetch(`http://127.0.0.1:8000/${this.state.user}/${this.state.trip}/mydebtbyowner/${props.id}/`)
-            const newTotal = await response.json()
-            setTotal(newTotal)
-         };
-
-         fetchData();
-      }, [])
-      return <p>{total}</p>
-   }
+   
 
    //function to diplay all users
    renderUsers = (props) => {
