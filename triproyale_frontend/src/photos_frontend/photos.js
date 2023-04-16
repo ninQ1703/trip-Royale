@@ -1,21 +1,18 @@
-import './App.css';
 import { useState } from 'react';
 import { Helmet } from "react-helmet"
 import * as React from 'react';
-import CldGallery from "./photos_frontend/components/CldGallery";
+import CldGallery from './components/CldGallery'
 import { Cloudinary } from "@cloudinary/url-gen";
-import ImageUpload from "./photos_frontend/components/ImageUpload";
+import ImageUpload from "./components/ImageUpload";
 import { useEffect } from "react"
 
-function App() {
+const Gallery=(props) => {
     const [imagesUploadedList, setImagesUploadedList] = useState([]);
-    const user = 1;
-    const trip = 1;
     const [images, setImages] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(`http://127.0.0.1:8000/${user}/${trip}/photos/`);
+            const response = await fetch(`http://127.0.0.1:8000/${props.user}/${props.trip}/photos/`);
             const newPhotosList = await response.json();
             setImages(newPhotosList);
         };
@@ -93,4 +90,4 @@ function App() {
     );
 }
 
-export default App;
+export default Gallery;

@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import { useEffect, useState } from "react"
-import './App.css';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -17,7 +16,7 @@ const RenderTotal = (props) => {
       fetchData();
    }, [])
    console.log(amount);
-   return <div style={{ backgroundColor: "#FF900B ", width: "80vh", border: "1px solid black", borderTopLeftRadius: 8, borderTopRightRadius: 8, marginTop: "-39%", marginLeft: "40%", height: '7vh', position: 'relative', zIndex: '5' }}>
+   return <div style={{marginTop:"-37%" ,backgroundColor: "#FF900B ", width: "80vh", border: "1px solid black", borderTopLeftRadius: 8, borderTopRightRadius: 8, marginLeft: "40%", height: '7vh', position: 'relative', zIndex: '5' }}>
       <div>
 
          <div style={{ display: 'flex', justifyContent: 'space-between', paddingLeft: "1%", paddingRight: '1%', paddingTop: '2%', alignItems: 'center' }}>
@@ -51,28 +50,32 @@ const RenderTag = (props) => {
 
 
 
-function App() {
-   const user = 1;
-   const trip = 1;
+const TotalExpenses = (props) => {
 
    return (
       <>
-         <div>
-            <div style={{
-               position: "relative", backgroundColor: "#E28616", color: "#FFFFFF",
-               minHeight: '3em',
-               margin: '0'
-            }}>
-               <div style={{ fontSize: "2em", fontWeight: "2em", float: "left", maxHeight: "60px", marginLeft: "3%" }}>TripRoyale
-               </div>
+         <div style={{
+            position: "fixed", backgroundColor: "#E28616", color: "#FFFFFF",
+            minHeight: '3em', width: '100%',
+            margin: '0', top: '0%', left: '0%', zIndex: '3'
+         }}>
+            <div style={{ fontSize: "2em", fontWeight: "2em", float: "left", maxHeight: "60px", marginLeft: "3%" }}>
+               TripRoyale
             </div>
-            <div style={{
-               position: "relative", backgroundColor: "#F6AD52", color: "#000000", minHeight: '2.77em',
-               margin: '0'
-            }}>
-               <div style={{ fontSize: "1.5em", textAlign: "center", fontWeight: "2em", maxHeight: "60px", marginLeft: "3%", paddingTop: ".5%", paddingBottom: ".3%" }}>EXPENSES
-               </div>
+         </div>
+         <div style={{
+            position: "fixed", backgroundColor: "#F6AD52", color: "#000000", minHeight: '2.77em',
+            top: '3em', width: '100%', zIndex: '3'
+         }}>
+            <div style={{ fontSize: "1.5em", textAlign: "center", fontWeight: "2em", maxHeight: "60px", marginLeft: "3%", paddingTop: ".5%", paddingBottom: ".3%" }}>TOTAL EXPENSES
             </div>
+         </div>
+         <div style={{
+            position: "fixed", backgroundColor: "#FFFFFF", color: "#000000", minHeight: '3em',
+            top: '5em', width: '100%', zIndex: '1'
+         }}>
+         </div>
+
 
 
             <div style={{ marginTop: '8%' }}>
@@ -87,16 +90,16 @@ function App() {
                      src={mm} height={400} width={400} style={{ marginLeft: "10%", marginTop: "-29%", position: 'relative', zIndex: '3' }}
                      alt="logo"
                   />
-                     <RenderTotal user={user} trip={trip} />
-                     <div style={{ backgroundColor: "#FFE193", width: "80vh", border: "0.5px solid black", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, marginLeft: "40%", position: 'relative', zIndex: '5' }}>
-                        <RenderTag user={user} trip={trip} tag="travel" TAG="TRAVEL" />
-                        <RenderTag user={user} trip={trip} tag="stay" TAG="STAY" />
-                        <RenderTag user={user} trip={trip} tag="dining" TAG="DINING" />
-                        <RenderTag user={user} trip={trip} tag="shopping" TAG="SHOPPING" />
-                        <RenderTag user={user} trip={trip} tag="adventure" TAG="ACTIVITIES" />
-                        <RenderTag user={user} trip={trip} tag="others" TAG="OTHERS" />
+                     <RenderTotal user={props.user} trip={props.trip} />
+                     <div style={{height:"10%",marginTop:"-33.5%",backgroundColor: "#FFE193", width: "80vh", border: "0.5px solid black", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, marginLeft: "40%", position: 'relative', zIndex: '5' }}>
+                        <RenderTag user={props.user} trip={props.trip} tag="travel" TAG="TRAVEL" />
+                        <RenderTag user={props.user} trip={props.trip} tag="stay" TAG="STAY" />
+                        <RenderTag user={props.user} trip={props.trip} tag="dining" TAG="DINING" />
+                        <RenderTag user={props.user} trip={props.trip} tag="shopping" TAG="SHOPPING" />
+                        <RenderTag user={props.user} trip={props.trip} tag="adventure" TAG="ACTIVITIES" />
+                        <RenderTag user={props.user} trip={props.trip} tag="others" TAG="OTHERS" />
                      </div>
-                     <Card style={{ backgroundColor: "#FFFFFF", width: "50%", height: "40vh", width: "65vh", marginLeft: "36%", marginTop: "-15%", position: 'relative', zIndex: '2' }}>
+                     <Card style={{ backgroundColor: "#FFFFFF", width: "50%", height: "40vh", width: "65vh", marginLeft: "36%", marginTop: "-28%", position: 'relative', zIndex: '2' }}>
                         <Card.Body>
                            <Card.Text >{""}</Card.Text>
                         </Card.Body>
@@ -104,11 +107,11 @@ function App() {
                   </Row>
                </Col>
             </div>
-         </div>
+
       </>
    );
 
 }
 
 
-export default App;
+export default TotalExpenses;
