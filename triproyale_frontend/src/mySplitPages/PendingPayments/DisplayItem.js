@@ -2,6 +2,7 @@ import { Collapse } from 'react-collapse';
 import { useEffect, useState } from "react"
 import GetPaidInfo from './GetPaidInfo';
 import GetList from './GetList';
+import formatDate from '../month';
 
 const DisplayItem = (props) => {
     const closedd = <div name='closedd' style={{
@@ -46,7 +47,7 @@ const DisplayItem = (props) => {
             <div style={{ boxShadow: "0px 0px 5px  ", display: "inline-block", border: '1px solid black', backgroundColor: "#FF900B ", width: '100vh', height: '7vh', marginTop: '1%', borderRadius: '10px' }}>
                 {props.split.amount}
                 <div style={{ display: 'inline-block', margin: '10px' }}>
-                    {props.split.creation_date}
+                    {formatDate(props.split.creation_date)}
                 </div>
                 <GetPaidInfo id={props.split.id} user={props.user} trip={props.trip} />
             </div>

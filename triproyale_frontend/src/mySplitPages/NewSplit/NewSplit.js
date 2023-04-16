@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
+
+
 const CreateForm = (props) => {
    const [tag, setTag] = useState('others');
    const [Tamount, setTAmount] = useState("0");
@@ -11,7 +13,7 @@ const CreateForm = (props) => {
 
    useEffect(() => {
       const fetchData = async () => {
-         const resUsers = await fetch(`http://127.0.0.1:8000/${props.user}/${props.trip}/attendees`);
+         const resUsers = await fetch(`http://127.0.0.1:8000/2/1/attendees`);
          let users = await resUsers.json();
          // console.log(users)
 
@@ -57,12 +59,12 @@ const CreateForm = (props) => {
 
    const handleSubmit = (e) => {
       e.preventDefault();
-      fetch(`http://127.0.0.1:8000/${props.user}/${props.trip}/newsplit/`, {
+      fetch(`http://127.0.0.1:8000/2/1/newsplit/`, {
          method: 'POST',
          body: JSON.stringify({
-            trip: props.trip,
+            trip: 1,
             tag: tag,
-            owner: props.user,
+            owner: 2,
             amount: Tamount,
          }),
          headers: {
@@ -86,7 +88,11 @@ const CreateForm = (props) => {
             })
 
          })
-         .then((res) => res.json()).then((data) => navigate('/expenses/pendingpayments'))
+         .then((res) => res.json())
+         .catch((err) => {
+            console.log(err.message);
+         });
+         navigate('/expenses/pendingpayments')
    };
    return (
       <div>
@@ -144,6 +150,7 @@ const CreateForm = (props) => {
 
 
 const NewSplit = (props) => {
+   // console.log()
    return <>
       <CreateForm user={props.user} trip = {props.trip} />
       <h3>Errors to deal with</h3>

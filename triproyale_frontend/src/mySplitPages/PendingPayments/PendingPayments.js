@@ -6,10 +6,11 @@ import ye from './Credit_card_bro.png'
 import Button from 'react-bootstrap/Button';
 import { useEffect, useState } from "react"
 import DisplayItem from './DisplayItem';
+import { useNavigate } from 'react-router-dom';
 
 const PendingPayments = (props) =>  {
     const [splits, setSplits] = useState([]);
-
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchData = async () => {
             console.log(props.user)
@@ -75,7 +76,7 @@ const PendingPayments = (props) =>  {
                 <div style={{}}>
                     <Button variant="warning" style=
                         {{ backgroundColor: "#FF900B", fontSize: "20px", color: "#000000", borderRadius: '20px', borderColor: "#FFFFFF", width: "250px", height: "50px", marginLeft: "51%", marginTop: "10%", boxShadow: "5px 5px 3px rgba(46, 46, 46, 0.62)" }}
-                        onClick={() => { }}>+ ADD NEW SPLIT</Button>
+                        onClick={() => { navigate('/newsplit')}}>+ ADD NEW SPLIT</Button>
                 </div>
             </Container >
         </>

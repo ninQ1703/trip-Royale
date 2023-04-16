@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import DisplayPaidInfo from "./DisplayPaidInfo";
+import formatDate from "../month";
+
 const GetList = (props) => {
     const [list, setlist] = useState({ list: [] });
     useEffect(() => {
@@ -16,7 +18,8 @@ const GetList = (props) => {
         console.log(list)
         return list.map(item => {
             console.log(item.paid);
-            return <div style={{ display: 'flex', justifyContent: 'space-between', paddingLeft: "1%", paddingRight: '1%', alignItems: 'center', marginLeft: '6%', border: '1px solid black', backgroundColor: "#FFE193 ", width: '94vh', height: '6vh', borderTopRightRadius: '10px', borderBottomLeftRadius: '10px' }}>{item.creation_date}
+            return <div style={{ display: 'flex', justifyContent: 'space-between', paddingLeft: "1%", paddingRight: '1%', alignItems: 'center', marginLeft: '6%', border: '1px solid black', backgroundColor: "#FFE193 ", width: '94vh', height: '6vh', borderTopRightRadius: '10px', borderBottomLeftRadius: '10px' }}>
+                {formatDate(item.creation_date)}
                 <DisplayPaidInfo paid={item.paid} amount={item.amount} /></div>
         });
     } else {

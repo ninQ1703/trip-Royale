@@ -29,7 +29,7 @@ function App() {
         </BrowserRouter>
         {/* <NewSplit user={user} trip={trip}/> */}
         {/* <Gallery user={user} trip={trip}/>  */}
-        <TotalExpenses user={user} trip={trip}/> 
+        {/* <TotalExpenses user={user} trip={trip}/>  */}
         {/* <AmountToBePaid user={user} trip={trip}/> */}
         </>
     );
