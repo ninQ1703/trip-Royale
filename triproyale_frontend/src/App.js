@@ -8,7 +8,7 @@ import { BrowserRouter,Routes, Route } from 'react-router-dom';
 import { Link
  } from 'react-router-dom';
 import SideBar from './SideBar/Sidebar';
-import NewSplit from './mySplitPages/NewSplit/NewSplit';
+import NewSplit from './mySplitPages/NewSplit/NewSplits';
 
 function App() {
     const user = 2;
@@ -31,6 +31,7 @@ function App() {
         {/* <Gallery user={user} trip={trip}/>  */}
         {/* <TotalExpenses user={user} trip={trip}/>  */}
         {/* <AmountToBePaid user={user} trip={trip}/> */}
+        {/* <NewSplit user={user} trip={trip}/> */}
         </>
     );
 }
