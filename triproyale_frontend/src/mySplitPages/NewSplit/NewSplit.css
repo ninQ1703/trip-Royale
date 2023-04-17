@@ -1,3 +1,14 @@
 .selectedhover:hover{
 background-color: rgb(201, 198, 198);
 }
+
+input:focus{
+    border-top-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+}
+input{
+    border-top-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+}

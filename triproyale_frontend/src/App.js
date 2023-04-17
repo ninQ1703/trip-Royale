@@ -17,7 +17,8 @@ function App() {
         <>
         <BrowserRouter>
         <SideBar/>
-        <div><Routes >
+        <div>
+            <Routes >
                 {/* <Route path='/' element={<SideBar/>}/> */}
                 {/* <Route path='/recommendations' element={}/> */}
                 <Route path='/' element={<Navigate replace to='/gallery'/>}/>
@@ -26,7 +27,8 @@ function App() {
                 <Route path='/expenses/amounttobepaid' element={<AmountToBePaid user={user} trip={trip}/>}/>
                 <Route path='/expenses/pendingpayments' element={ <PendingPayments user={user} trip={trip}/>}/>
                 <Route path='/newsplit' element={<NewSplit user={user} trip={trip}/>}/>
-            </Routes></div>
+            </Routes>
+        </div>
             
         </BrowserRouter>
         {/* <NewSplit user={user} trip={trip}/> */}

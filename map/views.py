@@ -24,7 +24,7 @@ def index(request):
     
     
     headers = {
-	    "X-RapidAPI-Key": "8176473712msh77dcc9d3322b02ap1e16a0jsn8bf2a958d9b2",
+	    "X-RapidAPI-Key": "669f60476bmsh8517cd0a04291bdp146acfjsnfe3e866849b4",
 	    "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com"
     }  
     
@@ -56,7 +56,7 @@ def index(request):
     }
     headers = {
         "content-type": "application/json",
-        "X-RapidAPI-Key": "8176473712msh77dcc9d3322b02ap1e16a0jsn8bf2a958d9b2",
+        "X-RapidAPI-Key": "669f60476bmsh8517cd0a04291bdp146acfjsnfe3e866849b4",
         "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com"
     }
 

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { Helmet } from "react-helmet";
 // import Button from "react-bootstrap/esm/Button";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-
+import { IconContext } from "react-icons/lib";
+import './SearchBar.css'
 const SearchBar = (props) => {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
@@ -21,7 +23,7 @@ const SearchBar = (props) => {
         event.preventDefault();
         const searchTerm = event.target.value;
         setSearchTerm(searchTerm);
-        
+
         const results = props.unselected_list.filter((item) =>
             item.Name.toLowerCase().includes(searchTerm.toLowerCase())
         );
@@ -33,8 +35,12 @@ const SearchBar = (props) => {
         if (searchResults.length) {
             return <div style={{}}>
                 {searchResults.map((item) => (
-                    <div style={{margin:"15px",fontSize:'14px',paddingLeft:"14%"}}>{item.Name}
-                        <button style={{marginTop:"2%" ,borderWidth:"0px" ,backgroundColor:"transparent",marginLeft: "80%", display: "flex" }} onClick={(e) => handleRemove(item.id, e)}><AiOutlinePlusCircle/></button>
+                    <div style={{ margin: '13px', fontSize: '20px' }} class="unselected">{item.Name}
+                        <button style={{ marginTop: '-9%', borderWidth: "0px", backgroundColor: "transparent", marginLeft: "80%", display: "flex" }} onClick={(e) => handleRemove(item.id, e)}>
+                            <span class="changeColor">
+                                <AiOutlinePlusCircle size="1.5em" />
+                            </span>
+                        </button>
                     </div>
                 ))}
             </div>
@@ -42,9 +48,13 @@ const SearchBar = (props) => {
         else
             return <div>
                 {props.unselected_list.map((item) => (
-                    <div>
+                    <div style={{ margin: '13px', fontSize: '20px' }} class="unselected">
                         {item.Name}
-                        <button style={{marginTop:"-4%" ,borderWidth:"0px" ,backgroundColor:"transparent", marginLeft: "80%", display: "flex" }} onClick={(e) => handleRemove(item.id, e)}><AiOutlinePlusCircle/> </button>
+                        <button style={{ marginTop: '-9%', borderWidth: "0px", backgroundColor: "transparent", marginLeft: "80%", display: "flex" }} onClick={(e) => handleRemove(item.id, e)}>
+                            <span class="changeColor">
+                                <AiOutlinePlusCircle size="1.5em" />
+                            </span>
+                        </button>
                     </div>
                 ))}
             </div>
@@ -57,10 +67,10 @@ const SearchBar = (props) => {
                 placeholder="Search..."
                 onChange={handleChange}
                 value={searchTerm}
-                style={{margin:'6px',alignSelf:'center'}}
+                style={{ margin: '6px', alignSelf: 'center' }}
             />
             {DisplaySearchItems()}
-            <button style={{position:'absolute',bottom:"8%",width:'100px',height:'40px',marginLeft:"35%",color:'#FFFFFF',color:'black',borderWidth:'1px',borderColor:'grey',borderRadius:"6px"}} onClick={props.showSidebar}>CANCEL</button>
+            <button style={{ position: 'absolute', bottom: "8%", width: '100px', height: '40px', marginLeft: "35%", color: '#FFFFFF', color: 'black', borderWidth: '1px', borderColor: 'grey', borderRadius: "6px" }} onClick={props.showSidebar}>CANCEL</button>
         </div>
     );
 };

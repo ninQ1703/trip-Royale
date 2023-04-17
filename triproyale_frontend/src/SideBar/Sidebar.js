@@ -27,22 +27,22 @@ function SideBar() {
         <Offcanvas.Body>
           <ListGroup style={{ borderWidth: '0px' }}>
             <ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}>SCHEDULER</ListGroup.Item>
-            <a href='http://127.0.0.1:8000/'  ><ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}>FIND NEARBY PLACES</ListGroup.Item></a>
-            <Link to='/newsplit'><ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}>SPLIT BILL</ListGroup.Item></Link>
+            <a href='http://127.0.0.1:8000/'  style={{textDecoration: 'none'}}><ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}>FIND NEARBY PLACES</ListGroup.Item></a>
+            <Link to='/newsplit' style={{textDecoration: 'none'}}><ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}>SPLIT BILL</ListGroup.Item></Link>
             <ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}>
               MY EXPENSES
               <Button variant="warning" onClick={handleME} style={{ backgroundColor: "#AD6207", borderWidth: '0px', borderColor: "#AD6207", color: 'white' }}>v</Button>
               <Collapse in={open}>
                 <div >
                   <ListGroup>
-                    <Link to='/expenses/myexpenses'><ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}>EXPENSES</ListGroup.Item></Link>
-                    <Link to='/expenses/amounttobepaid'><ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}>AMOUNT TO BE PAID</ListGroup.Item></Link>
-                    <Link to='/expenses/pendingpayments'><ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}>PENDING PAYMENT</ListGroup.Item></Link>
+                    <Link to='/expenses/myexpenses' style={{textDecoration: 'none'}}><ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}>EXPENSES</ListGroup.Item></Link>
+                    <Link to='/expenses/amounttobepaid' style={{textDecoration: 'none'}}><ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}>AMOUNT TO BE PAID</ListGroup.Item></Link>
+                    <Link to='/expenses/pendingpayments' style={{textDecoration: 'none'}}><ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}>PENDING PAYMENT</ListGroup.Item></Link>
                   </ListGroup>
                 </div>
               </Collapse>
             </ListGroup.Item>
-            <Link to='/gallery'><ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}>PHOTOS</ListGroup.Item></Link>
+            <Link to='/gallery' style={{textDecoration: 'none'}}><ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}>PHOTOS</ListGroup.Item></Link>
             <ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}>CHAT</ListGroup.Item>
             <ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}>SETTINGS</ListGroup.Item>
           </ListGroup>

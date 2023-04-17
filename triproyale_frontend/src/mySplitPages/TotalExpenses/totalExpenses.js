@@ -4,6 +4,10 @@ import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import bgm from './bgm.png'
+import { ImAirplane } from "react-icons/im";
+import { MdLocalHotel, MdLocalDining,MdHiking } from "react-icons/md";
+import {HiShoppingCart} from "react-icons/hi"
+import {BsBoundingBoxCircles} from "react-icons/bs"
 
 const RenderTotal = (props) => {
    const [amount, setAmount] = useState(0);
@@ -19,9 +23,9 @@ const RenderTotal = (props) => {
    return <div style={{ backgroundColor: "#FF900B ", width: "80vh", border: "1px solid black", borderTopLeftRadius: 8, borderTopRightRadius: 8, marginLeft: "50%", height: '7vh', position: 'relative', zIndex: '5' }}>
       <div>
 
-         <div style={{ display: 'flex', justifyContent: 'space-between', paddingLeft: "1%", paddingRight: '1%', paddingTop: '2%', alignItems: 'center' }}>
+         <div style={{ display: 'flex',paddingLeft: "3%", paddingRight: '1%', paddingTop: '2%', alignItems: 'center' }}>
             <div>TOTAL</div>
-            <div>{amount}</div>
+            <div style={{ marginLeft: 'auto' ,paddingRight:'3%'}}>{amount} Rs</div>
          </div>
 
       </div>
@@ -34,7 +38,7 @@ const RenderTag = (props) => {
    const [amount, setAmount] = useState(0);
    useEffect(() => {
       const fetchData = async () => {
-         const response = await fetch(`http://localhost:8000/${props.user}/${props.trip}/mydebtbytag/${props.tag}/`);
+         const response = await fetch(`http://localhost:8000/${props.user}/${props.trip}/mydebtbytag/${props.item.tag}/`);
          const newAmount = await response.json();
          setAmount(newAmount);
       };
@@ -42,16 +46,51 @@ const RenderTag = (props) => {
    }, [])
    console.log(amount);
    //  console.log(tag);
-   return <div style={{ border: "1px solid black", height: '7vh', display: 'flex', justifyContent: 'space-between', paddingLeft: "1%", paddingRight: '1%', alignItems: 'center' }}>
-      <div>{props.TAG}</div>
-      <div>{amount}</div>
+   return <div style={{ border: "1px solid black", height: '7vh', display: 'flex', paddingLeft: "3%", paddingRight: '1%' ,alignItems:'center'}}>
+      <span>
+         {props.item.icon}
+      </span>
+
+      <div style={{ paddingLeft:'3%'}}>{props.item.TAG}</div>
+      <div style={{ marginLeft: 'auto' ,paddingRight:'3%'}}>{amount} Rs</div>
    </div>
 }
 
 
 
 const TotalExpenses = (props) => {
-
+   const tags = [
+      {
+         tag: "travel",
+         TAG: "TRAVEL",
+         icon: <ImAirplane size="1.5em"/>
+      },
+      {
+         tag: "stay",
+         TAG: "STAY",
+         icon: <MdLocalHotel  size="1.5em"/>
+      },
+      {
+         tag: "dining",
+         TAG: "DINING",
+         icon: <MdLocalDining size="1.5em"/>
+      },
+      {
+         tag: "shopping",
+         TAG: "SHOPPING",
+         icon: <HiShoppingCart size="1.5em"/>
+      },
+      {
+         tag: "activities",
+         TAG: "ACTIVITES",
+         icon: <MdHiking size="1.5em"/>
+      },
+      {
+         tag: "others",
+         TAG: "OTHERS",
+         icon: <BsBoundingBoxCircles size="1.5em"  />
+      }
+   ]
    return (
       <>
          <div style={{
@@ -82,16 +121,16 @@ const TotalExpenses = (props) => {
             <Col>
                <RenderTotal user={props.user} trip={props.trip} />
                <div style={{ height: "10%", backgroundColor: "#FFE193", width: "80vh", border: "0.5px solid black", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, marginLeft: "50%", position: 'relative', zIndex: '5' }}>
-                  <RenderTag user={props.user} trip={props.trip} tag="travel" TAG="TRAVEL" />
-                  <RenderTag user={props.user} trip={props.trip} tag="stay" TAG="STAY" />
-                  <RenderTag user={props.user} trip={props.trip} tag="dining" TAG="DINING" />
-                  <RenderTag user={props.user} trip={props.trip} tag="shopping" TAG="SHOPPING" />
-                  <RenderTag user={props.user} trip={props.trip} tag="adventure" TAG="ACTIVITIES" />
-                  <RenderTag user={props.user} trip={props.trip} tag="others" TAG="OTHERS" />
+                  <RenderTag user={props.user} trip={props.trip} item={tags[0]} />
+                  <RenderTag user={props.user} trip={props.trip} item={tags[1]}/>
+                  <RenderTag user={props.user} trip={props.trip} item={tags[2]} />
+                  <RenderTag user={props.user} trip={props.trip} item={tags[3]} />
+                  <RenderTag user={props.user} trip={props.trip} item={tags[4]}/>
+                  <RenderTag user={props.user} trip={props.trip} item={tags[5]}/>
                </div>
             </Col>
          </div>
-         <div style={{ position: 'absolute',left:'40px' ,top: "100px", zIndex: "-10" }}>
+         <div style={{ position: 'absolute', left: '40px', top: "100px", zIndex: "-10" }}>
             <img src={bgm} style={{ width: "80%" }} />
          </div>
       </>
