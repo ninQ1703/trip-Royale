@@ -2,15 +2,16 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import * as React from 'react';
-import ye from './Credit_card_bro.png'
+import bgm from './bgm.png'
 import Button from 'react-bootstrap/Button';
 import { useEffect, useState } from "react"
 import DisplayItem from './DisplayItem';
 import { useNavigate } from 'react-router-dom';
 
-const PendingPayments = (props) =>  {
+const PendingPayments = (props) => {
     const [splits, setSplits] = useState([]);
     const navigate = useNavigate();
+
     useEffect(() => {
         const fetchData = async () => {
             console.log(props.user)
@@ -48,37 +49,30 @@ const PendingPayments = (props) =>  {
                 </div>
             </div>
             <div style={{
-                position: "fixed", backgroundColor: "#FFFFFF", color: "#000000", minHeight: '3em',
-                top: '5em', width: '100%', zIndex: '1'
+                position: "fixed", backgroundColor: "#FFFFFF", color: "#000000", minHeight: '4em',
+                top: '5em', width: '100%', zIndex: '1', left: '330px',
             }}>
             </div>
 
 
 
-            <Container className="pt-3" style={{ marginTop: '15%' }}>
+            <Container className="pt-3" style={{ marginTop: '15%', marginBottom:'30%' }}>
                 <div >
                     {DisplayList()}
                 </div>
-                <div style={{ backgroundColor: "#FFE193", height: "100vh", width: "75vh", top: '2%', left: '-5%', position: 'fixed', zIndex: '2' }}>
-                </div>
-                <div style={{ backgroundColor: "#FFFFFF", height: "35vh", width: "35vh", top: '21%', left: '-5%', position: 'fixed', zIndex: '3', borderRadius: '50%' }}>
-                </div>
-                <div style={{ backgroundColor: "#FFE193", border: "1px solid black", width: "50%", height: "20vh", width: "20vh", top: '40%', left: '-5%', position: 'fixed', zIndex: '3', borderRadius: '50%' }}>
-                </div>
-                <Col>
-                    <Row>
-                        <img
-                            src={ye} height={300} width={300} style={{ marginLeft: "1%", marginTop: "-3%", top: '60%', left: '3%', position: 'fixed', zIndex: '4' }}
-                            alt="logo"
-                        />
-                    </Row >
-                </Col >
-                <div style={{}}>
+
+                <div style={{
+                    position: "fixed", backgroundColor: "#FFFFFF", color: "#000000", minHeight: '8em',
+                    bottom: '0em', width: '100%', zIndex: '1', left: '330px',
+                }}>
                     <Button variant="warning" style=
-                        {{ backgroundColor: "#FF900B", fontSize: "20px", color: "#000000", borderRadius: '20px', borderColor: "#FFFFFF", width: "250px", height: "50px", marginLeft: "51%", marginTop: "10%", boxShadow: "5px 5px 3px rgba(46, 46, 46, 0.62)" }}
+                        {{ position: 'fixed', backgroundColor: "#FF900B", fontSize: "20px", color: "#000000", borderRadius: '20px', borderColor: "#FFFFFF", width: "250px", height: "50px", left: "600px", bottom: '34px', boxShadow: "5px 5px 3px rgba(46, 46, 46, 0.62)" }}
                         onClick={() => { navigate('/newsplit')}}>+ ADD NEW SPLIT</Button>
                 </div>
             </Container >
+            <div style={{ position: 'fixed', top: "95px", zIndex: "-10" }}>
+                <img src={bgm} style={{ width: "85%" }} />
+            </div>
         </>
     );
 }

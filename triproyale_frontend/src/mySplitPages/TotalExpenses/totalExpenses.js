@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import mm from './Manage_money_bro.png'
+import bgm from './bgm.png'
 
 const RenderTotal = (props) => {
    const [amount, setAmount] = useState(0);
@@ -16,7 +16,7 @@ const RenderTotal = (props) => {
       fetchData();
    }, [])
    console.log(amount);
-   return <div style={{marginTop:"-37%" ,backgroundColor: "#FF900B ", width: "80vh", border: "1px solid black", borderTopLeftRadius: 8, borderTopRightRadius: 8, marginLeft: "40%", height: '7vh', position: 'relative', zIndex: '5' }}>
+   return <div style={{ backgroundColor: "#FF900B ", width: "80vh", border: "1px solid black", borderTopLeftRadius: 8, borderTopRightRadius: 8, marginLeft: "50%", height: '7vh', position: 'relative', zIndex: '5' }}>
       <div>
 
          <div style={{ display: 'flex', justifyContent: 'space-between', paddingLeft: "1%", paddingRight: '1%', paddingTop: '2%', alignItems: 'center' }}>
@@ -78,36 +78,22 @@ const TotalExpenses = (props) => {
 
 
 
-            <div style={{ marginTop: '8%' }}>
-               <Card style={{ backgroundColor: "#FF900B", opacity: .4, width: "50%", height: "65vh", width: "90vh", marginLeft: "30%", marginTop: "4%", position: 'relative', zIndex: '1' }}>
-                  <Card.Body>
-                     <Card.Text >{""}</Card.Text>
-                  </Card.Body>
-               </Card>
-
-               <Col>
-                  <Row><img
-                     src={mm} height={400} width={400} style={{ marginLeft: "10%", marginTop: "-29%", position: 'relative', zIndex: '3' }}
-                     alt="logo"
-                  />
-                     <RenderTotal user={props.user} trip={props.trip} />
-                     <div style={{height:"10%",marginTop:"-33.5%",backgroundColor: "#FFE193", width: "80vh", border: "0.5px solid black", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, marginLeft: "40%", position: 'relative', zIndex: '5' }}>
-                        <RenderTag user={props.user} trip={props.trip} tag="travel" TAG="TRAVEL" />
-                        <RenderTag user={props.user} trip={props.trip} tag="stay" TAG="STAY" />
-                        <RenderTag user={props.user} trip={props.trip} tag="dining" TAG="DINING" />
-                        <RenderTag user={props.user} trip={props.trip} tag="shopping" TAG="SHOPPING" />
-                        <RenderTag user={props.user} trip={props.trip} tag="adventure" TAG="ACTIVITIES" />
-                        <RenderTag user={props.user} trip={props.trip} tag="others" TAG="OTHERS" />
-                     </div>
-                     <Card style={{ backgroundColor: "#FFFFFF", width: "50%", height: "40vh", width: "65vh", marginLeft: "36%", marginTop: "-28%", position: 'relative', zIndex: '2' }}>
-                        <Card.Body>
-                           <Card.Text >{""}</Card.Text>
-                        </Card.Body>
-                     </Card>
-                  </Row>
-               </Col>
-            </div>
-
+         <div style={{ marginTop: '10%' }}>
+            <Col>
+               <RenderTotal user={props.user} trip={props.trip} />
+               <div style={{ height: "10%", backgroundColor: "#FFE193", width: "80vh", border: "0.5px solid black", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, marginLeft: "50%", position: 'relative', zIndex: '5' }}>
+                  <RenderTag user={props.user} trip={props.trip} tag="travel" TAG="TRAVEL" />
+                  <RenderTag user={props.user} trip={props.trip} tag="stay" TAG="STAY" />
+                  <RenderTag user={props.user} trip={props.trip} tag="dining" TAG="DINING" />
+                  <RenderTag user={props.user} trip={props.trip} tag="shopping" TAG="SHOPPING" />
+                  <RenderTag user={props.user} trip={props.trip} tag="adventure" TAG="ACTIVITIES" />
+                  <RenderTag user={props.user} trip={props.trip} tag="others" TAG="OTHERS" />
+               </div>
+            </Col>
+         </div>
+         <div style={{ position: 'absolute',left:'40px' ,top: "100px", zIndex: "-10" }}>
+            <img src={bgm} style={{ width: "80%" }} />
+         </div>
       </>
    );
 

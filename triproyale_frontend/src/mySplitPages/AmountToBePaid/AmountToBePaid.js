@@ -3,7 +3,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { useState, useEffect } from 'react';
 import * as React from 'react';
-import ye from './Credit_card_bro.png'
+import bgm from './bgm.png'
 import DisplayItem from './DisplayItem';
 
 //  list of functions used
@@ -63,19 +63,10 @@ const AmountToBePaid = (props) => {
                 <div >
                     {DisplayList()}
                 </div>
-                <div style={{ backgroundColor: "#FFE193", height: "35vh", width: "35vh", top: '21%', left: '-5%', position: 'fixed', zIndex: '-2', borderRadius: '50%' }}>
-                </div>
-                <div style={{ backgroundColor: "#FFFFFF", border: "1px solid black", width: "50%", height: "20vh", width: "20vh", top: '40%', left: '-5%', position: 'fixed', zIndex: '-1', borderRadius: '50%' }}>
-                </div>
-                <Col>
-                    <Row>
-                        <img
-                            src={ye} height={300} width={300} style={{ marginLeft: "1%", marginTop: "-3%", top: '60%', left: '3%', position: 'fixed', zIndex: '-1' }}
-                            alt="logo"
-                        />
-                    </Row >
-                </Col >
             </Container >
+            <div style={{ position: 'fixed', top: "90px", zIndex: "-10" }}>
+                <img src={bgm} style={{ width: "85%" }} />
+            </div>
         </>
     );
 }

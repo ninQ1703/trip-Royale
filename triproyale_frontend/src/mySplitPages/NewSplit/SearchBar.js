@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 // import Button from "react-bootstrap/esm/Button";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 
 const SearchBar = (props) => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -20,6 +21,7 @@ const SearchBar = (props) => {
         event.preventDefault();
         const searchTerm = event.target.value;
         setSearchTerm(searchTerm);
+        
         const results = props.unselected_list.filter((item) =>
             item.Name.toLowerCase().includes(searchTerm.toLowerCase())
         );
@@ -28,25 +30,24 @@ const SearchBar = (props) => {
     };
 
     const DisplaySearchItems = () => {
-        console.log(props.unselected_list[0].Name, searchResults)
         if (searchResults.length) {
-            return <ul>
+            return <div style={{}}>
                 {searchResults.map((item) => (
-                    <li>{item.Name}
-                        <button style={{ paddingLeft: "2%", marginTop: "-9%", marginLeft: "80%", height: "32px", width: "32px", borderRadius: "50%", display: "flex" }} onClick={(e) => handleRemove(item.id, e)}>+</button>
-                    </li>
+                    <div style={{margin:"15px",fontSize:'14px',paddingLeft:"14%"}}>{item.Name}
+                        <button style={{marginTop:"2%" ,borderWidth:"0px" ,backgroundColor:"transparent",marginLeft: "80%", display: "flex" }} onClick={(e) => handleRemove(item.id, e)}><AiOutlinePlusCircle/></button>
+                    </div>
                 ))}
-            </ul>
+            </div>
         }
         else
-            return <ul>
+            return <div>
                 {props.unselected_list.map((item) => (
-                    <li>
+                    <div>
                         {item.Name}
-                        <button style={{ paddingLeft: "2%", marginTop: "-9%", marginLeft: "80%", height: "32px", width: "32px", borderRadius: "50%", display: "flex" }} onClick={(e) => handleRemove(item.id, e)}>+</button>
-                    </li>
+                        <button style={{marginTop:"-4%" ,borderWidth:"0px" ,backgroundColor:"transparent", marginLeft: "80%", display: "flex" }} onClick={(e) => handleRemove(item.id, e)}><AiOutlinePlusCircle/> </button>
+                    </div>
                 ))}
-            </ul>
+            </div>
     }
 
     return (
@@ -59,7 +60,7 @@ const SearchBar = (props) => {
                 style={{margin:'6px',alignSelf:'center'}}
             />
             {DisplaySearchItems()}
-            {/* <button style={{position:'absolute',bottom:"8%",width:'100px',height:'40px',marginLeft:"35%",color:'#FFFFFF',color:'black',borderWidth:'1px',borderColor:'grey',borderRadius:"6px"}} onClick={props.showSidebar}>CANCEL</button> */}
+            <button style={{position:'absolute',bottom:"8%",width:'100px',height:'40px',marginLeft:"35%",color:'#FFFFFF',color:'black',borderWidth:'1px',borderColor:'grey',borderRadius:"6px"}} onClick={props.showSidebar}>CANCEL</button>
         </div>
     );
 };

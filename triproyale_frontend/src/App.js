@@ -4,7 +4,7 @@ import PendingPayments from './mySplitPages/PendingPayments/PendingPayments';
 import AmountToBePaid from './mySplitPages/AmountToBePaid/AmountToBePaid';
 import TotalExpenses from './mySplitPages/TotalExpenses/totalExpenses';
 import Gallery from './photos_frontend/photos';
-import { BrowserRouter,Routes, Route } from 'react-router-dom';
+import { BrowserRouter,Routes, Route, Navigate } from 'react-router-dom';
 import { Link
  } from 'react-router-dom';
 import SideBar from './SideBar/Sidebar';
@@ -16,9 +16,11 @@ function App() {
     return (
         <>
         <BrowserRouter>
-        {/* <SideBar /> */}
-        <div><Routes>
-                <Route path='/' element={<SideBar/>}/>
+        <SideBar/>
+        <div><Routes >
+                {/* <Route path='/' element={<SideBar/>}/> */}
+                {/* <Route path='/recommendations' element={}/> */}
+                <Route path='/' element={<Navigate replace to='/gallery'/>}/>
                 <Route path='/gallery' element={<Gallery user={user} trip={trip}/>}/>
                 <Route path='/expenses/myexpenses' element={<TotalExpenses user={user} trip={trip}/>}/>
                 <Route path='/expenses/amounttobepaid' element={<AmountToBePaid user={user} trip={trip}/>}/>

@@ -5,6 +5,9 @@ import Dropdown from "./Dropdown";
 import Sidebar from './Sidebar';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
+import { RxCross2 } from "react-icons/rx";
+import './NewSplit.css'
+
 
 const NewSplit = (props) => {
     const [Tamount, setTAmount] = useState("0");
@@ -96,7 +99,7 @@ const NewSplit = (props) => {
     console.log(selected)
     return (
 
-        <div style={{ overflowY: 'hidden' }}>
+        <div style={{ position:'relative',overflowY: 'hidden' }}>
             <div style={{
                 position: "fixed", backgroundColor: "#E28616", color: "#FFFFFF",
                 minHeight: '3em', width: '100%',
@@ -118,7 +121,7 @@ const NewSplit = (props) => {
                 top: '5em', width: '100%', zIndex: '1'
             }}>
             </div>
-            <div style={{ marginTop: '11%' }}>
+            <div style={{ marginTop: '10%' }}>
                 <div >
                     <Dropdown selected={selected.name} setSelected={setSelected} />
                 </div>
@@ -129,27 +132,30 @@ const NewSplit = (props) => {
                     <input type='number' min="0" step="1" style={{ width: "37.5%", }} onChange={(event) => setTAmount(event.target.value)} />
                 </div>
                 <img
-                    src={ii} height={520} width={400} style={{ marginLeft: "0%", marginTop: "-12%", position: 'relative', zIndex: '-1' }}
+                    src={ii} height={530} width={400} style={{ marginLeft: "0%", marginTop: "-13%", position: 'relative', zIndex: '-1' }}
                     alt="logo"
                 />
 
                 <div>
                     <Sidebar updateList={updateList} unselected_list={unselected_list} selected_list={selected_list} sidebar={sidebar} showSidebar={showSidebar}/>
                 </div>
-                <div style={{ marginLeft: '50%', marginTop: "-26%", border: "1px solid black", height: "230px", width: "35%", overflowY: "scroll", position: 'relative', borderTopLeftRadius: '14px', borderTopRightRadius: '14 px' }}>
+                <div style={{ marginLeft: '50%', marginTop: "-26%", border: "1px solid black", height: "230px", width: "35%", position: 'relative', borderTopLeftRadius: '14px', borderTopRightRadius: '14 px' }}>
                     <h5 style={{ paddingLeft: "5%", fontSize: "100%" }}>PEOPLE</h5>
-                    <ul>
-                        <div>
+                    {/* <ul> */}
+                        <div style={{marginLeft:'0%',overflowY: "scroll",overflowX:'hidden',height:"170px",width:"100%"}}>
                             {selected_list.map((item) => (
-                                <li style={{ marginLeft: "7%", marginTop: "2%", fontSize: "100%" }} >{item.Name} <button style={{ paddingLeft: "2%", paddingBottom: "3%", marginTop: "-6%", marginLeft: "-9%", height: "22px", width: "22px", borderRadius: "50%", display: "flex" }} onClick={(e) => RemoveUser(item.id)}>-</button>
+                                <div className="selectedhover" style={{ paddingLeft:"2%",marginTop: "2%", fontSize: "100%" }} >
+                                    <button style={{ backgroundColor:'transparent',borderWidth:'0px'}} onClick={(e) => RemoveUser(item.id)}>
+                                    <RxCross2/>
+                                    </button> {item.Name} 
                                     <div>
                                         <input type='number' min="0" step="1" style={{ marginTop: "-5%", width: "80px", display: "flex", height: "25px", marginLeft: "80%" }} defaultValue={item.amount} onChange={(event) => { setAmount(item.id, event.target.value); }} />
                                     </div>
-                                </li>
+                                </div>
 
                             ))}
                         </div>
-                    </ul>
+                    {/* </ul> */}
                     <Button variant="warning"
                         style={{ border: "1px solid black", backgroundColor: "#FF900B", fontSize: "15px", color: "#000000", borderColor: "#FFFFFF", width: "100%", height: "25px", paddingBottom: '6%', position: "absolute", bottom: '0px' }}
                         onClick={showSidebar}>+ ADD PEOPLE</Button>
