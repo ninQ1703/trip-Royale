@@ -25,7 +25,7 @@ const SearchBar = (props) => {
         setSearchTerm(searchTerm);
 
         const results = props.unselected_list.filter((item) =>
-            item.Name.toLowerCase().includes(searchTerm.toLowerCase())
+            item.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
         console.log(results)
         setSearchResults(results);
@@ -35,7 +35,7 @@ const SearchBar = (props) => {
         if (searchResults.length) {
             return <div style={{}}>
                 {searchResults.map((item) => (
-                    <div style={{ margin: '13px', fontSize: '20px' }} class="unselected">{item.Name}
+                    <div style={{ margin: '13px', fontSize: '20px' }} class="unselected">{item.name}
                         <button style={{ marginTop: '-9%', borderWidth: "0px", backgroundColor: "transparent", marginLeft: "80%", display: "flex" }} onClick={(e) => handleRemove(item.id, e)}>
                             <span class="changeColor">
                                 <AiOutlinePlusCircle size="1.5em" />
@@ -49,7 +49,7 @@ const SearchBar = (props) => {
             return <div>
                 {props.unselected_list.map((item) => (
                     <div style={{ margin: '13px', fontSize: '20px' }} class="unselected">
-                        {item.Name}
+                        {item.name}
                         <button style={{ marginTop: '-9%', borderWidth: "0px", backgroundColor: "transparent", marginLeft: "80%", display: "flex" }} onClick={(e) => handleRemove(item.id, e)}>
                             <span class="changeColor">
                                 <AiOutlinePlusCircle size="1.5em" />

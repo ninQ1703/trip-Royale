@@ -13,7 +13,7 @@ const NewSplit = (props) => {
     const [Tamount, setTAmount] = useState("0");
     const [selected, setSelected] = useState({ name: "ADD TAG", value: "others" });
     const [selected_list, setSelected_list] = useState([]);
-    const [unselected_list, setUnselected_list] = useState([{ Name: "Anupriya", id: 1, }]);
+    const [unselected_list, setUnselected_list] = useState([{ name: "Anupriya", id: 1, }]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -22,7 +22,7 @@ const NewSplit = (props) => {
             let users = await resUsers.json();
             // console.log(users)
 
-            users.forEach((userr) => { if (userr.id === props.user) { userr.Name = "you"; } userr.amount = "0" })
+            users.forEach((userr) => { if (userr.id === props.user) { userr.name = "you"; } userr.amount = "0" })
             setUnselected_list(users.filter((userr) => userr.id !== props.user));
             setSelected_list(users.filter((userr) => userr.id === props.user));
         };
@@ -147,7 +147,7 @@ const NewSplit = (props) => {
                                 <div className="selectedhover" style={{ paddingLeft:"2%",marginTop: "2%", fontSize: "100%" }} >
                                     <button style={{ backgroundColor:'transparent',borderWidth:'0px'}} onClick={(e) => RemoveUser(item.id)}>
                                     <RxCross2/>
-                                    </button> {item.Name} 
+                                    </button> {item.name} 
                                     <div>
                                         <input type='number' min="0" step="1" style={{ marginTop: "-5%", width: "80px", display: "flex", height: "25px", marginLeft: "80%" }} defaultValue={item.amount} onChange={(event) => { setAmount(item.id, event.target.value); }} />
                                     </div>

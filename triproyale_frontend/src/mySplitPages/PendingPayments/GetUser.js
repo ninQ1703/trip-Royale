@@ -8,7 +8,7 @@ const GetUser = (props) => {
             const response = await fetch(`http://127.0.0.1:8000/users/${props.id}/`);
             const newUser = await response.json();
             if (newUser[0].id == props.user) {
-                newUser[0].Name = "you"
+                newUser[0].name = "you"
             }
             setUser(newUser);
         };
@@ -16,7 +16,7 @@ const GetUser = (props) => {
     }, [])
 
     if (user.length) {
-        return <span>{user[0].Name}</span>
+        return <span>{user[0].name}</span>
     } else {
         return null;
     }

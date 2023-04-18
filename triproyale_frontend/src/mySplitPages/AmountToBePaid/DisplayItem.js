@@ -32,7 +32,7 @@ const DisplayItem = (props) => {
                 <button onClick={() => { changeDisplay() }} style={{ backgroundColor: 'transparent', border: '0px', marginTop: '2%', marginRight: '2%', display: 'inline' }}>{icon}</button>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <div style={{ boxShadow: "0px 0px 5px  ", border: '1px solid black', backgroundColor: "#FF900B ", width: '100%', height: '7vh', marginTop: '1%', borderRadius: '10px', display: 'flex', alignItems: 'center' }}>
-                        <div style={{ marginLeft: '3%' }}>{props.item.Name}</div>
+                        <div style={{ marginLeft: '3%' }}>{props.item.name}</div>
                         <Total id={props.item.id} user={props.user} trip={props.trip} />
                         <Paidinfo id={props.item.id} user={props.user} trip={props.trip} />
                     </div>
@@ -45,7 +45,7 @@ const DisplayItem = (props) => {
         } else return null;
     }
     console.log(total);
-    console.log(props.item.Name);
+    console.log(props.item.name);
     return <>
         {DisplayUserAmount()}
     </>
