@@ -22,7 +22,7 @@ const formatDate = (date) => {
     let d=parseInt(date.substring(8,10));
 
     return (
-      <p>{d} {months[m]}, {y}</p>
+      <div>{d} {months[m]}, {y}</div>
     )
 }
 

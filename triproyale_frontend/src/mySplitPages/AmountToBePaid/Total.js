@@ -11,7 +11,7 @@ const Total = (props) => {
 
         fetchData();
     }, [])
-    return <p style={{ display: 'inline-block' }}>{total}</p>
+    return <div style={{ display: 'inline-block', marginLeft: 'auto',marginRight:'3%' }}>{total} Rs</div>
 }
 
 export default Total;

@@ -6,7 +6,12 @@ import Collapse from 'react-bootstrap/Collapse';
 import {
   Link
 } from 'react-router-dom';
-
+import {SlCalender} from "react-icons/sl"
+import {GoLocation} from "react-icons/go"
+import {CgViewSplit} from "react-icons/cg"
+import {BsWallet,BsChevronDoubleDown} from "react-icons/bs"
+import {AiOutlineCloudUpload} from "react-icons/ai"
+import {BsChatDots} from "react-icons/bs"
 function SideBar() {
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
@@ -26,12 +31,12 @@ function SideBar() {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <ListGroup style={{ borderWidth: '0px' }}>
-            <ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}>SCHEDULER</ListGroup.Item>
-            <a href='http://127.0.0.1:8000/'  style={{textDecoration: 'none'}}><ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}>FIND NEARBY PLACES</ListGroup.Item></a>
-            <Link to='/newsplit' style={{textDecoration: 'none'}}><ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}>SPLIT BILL</ListGroup.Item></Link>
-            <ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}>
+            <ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}><SlCalender style={{marginRight:'2%',marginBottom:'1%'}}/>SCHEDULER</ListGroup.Item>
+            <a href='http://127.0.0.1:8000/'  style={{textDecoration: 'none'}}><ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}><GoLocation style={{marginRight:'2%',marginBottom:'1%'}}/>FIND NEARBY PLACES</ListGroup.Item></a>
+            <Link to='/newsplit' style={{textDecoration: 'none'}}><ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}><CgViewSplit style={{marginRight:'2%',marginBottom:'1%'}}/>SPLIT BILL</ListGroup.Item></Link>
+            <ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}><BsWallet style={{marginRight:'2%',marginBottom:'1%'}}/>
               MY EXPENSES
-              <Button variant="warning" onClick={handleME} style={{ backgroundColor: "#AD6207", borderWidth: '0px', borderColor: "#AD6207", color: 'white' }}>v</Button>
+              <Button variant="warning" onClick={handleME} style={{ backgroundColor: "#AD6207", borderWidth: '0px', borderColor: "#AD6207", color: 'white', marginBottom:'1%' }}><BsChevronDoubleDown style={{paddingBottom:'2%'}}/></Button>
               <Collapse in={open}>
                 <div >
                   <ListGroup>
@@ -42,9 +47,9 @@ function SideBar() {
                 </div>
               </Collapse>
             </ListGroup.Item>
-            <Link to='/gallery' style={{textDecoration: 'none'}}><ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}>PHOTOS</ListGroup.Item></Link>
-            <ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}>CHAT</ListGroup.Item>
-            <ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}>SETTINGS</ListGroup.Item>
+            <Link to='/gallery' style={{textDecoration: 'none'}}><ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}><AiOutlineCloudUpload style={{marginRight:'2%',marginBottom:'1%'}}/>PHOTOS</ListGroup.Item></Link>
+            <ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}><BsChatDots style={{marginRight:'2%',marginBottom:'1%'}}/>CHAT</ListGroup.Item>
+            {/* <ListGroup.Item variant="warning" style={{ backgroundColor: '#AD6207', borderWidth: '0px', color: 'white' }}><SlCalender style={{marginRight:'2%',marginBottom:'1%'}}/>SETTINGS</ListGroup.Item> */}
           </ListGroup>
         </Offcanvas.Body>
       </Offcanvas>

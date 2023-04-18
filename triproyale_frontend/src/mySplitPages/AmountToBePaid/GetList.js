@@ -18,7 +18,7 @@ const GetList = (props) => {
         console.log(list)
         return list.map(item => {
             console.log(item.paid);
-            return <div style={{ display: 'flex', justifyContent: 'space-between', paddingLeft: "1%", paddingRight: '1%', alignItems: 'center', marginLeft: '6%', border: '1px solid black', backgroundColor: "#FFE193 ", width: '94vh', height: '6vh', borderTopRightRadius: '10px', borderBottomLeftRadius: '10px' }}>
+            return <div style={{ display: 'flex', paddingLeft: "1%", paddingRight: '1%', width:'80%',alignItems: 'center', border: '1px solid black', backgroundColor: "#FFE193 ", width: '94vh', height: '6vh', borderTopRightRadius: '10px', borderBottomLeftRadius: '10px' }}>
                 {formatDate(item.creation_date)}
                 <DisplayPaidInfo paid={item.paid} amount={item.amount} /></div>
         });

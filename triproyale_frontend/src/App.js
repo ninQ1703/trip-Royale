@@ -11,7 +11,7 @@ import SideBar from './SideBar/Sidebar';
 import NewSplit from './mySplitPages/NewSplit/NewSplits';
 
 function App() {
-    const user = 2;
+    const user = 1;
     const trip = 1;
     return (
         <>

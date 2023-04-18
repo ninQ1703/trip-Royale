@@ -19,8 +19,9 @@ const GetList = (props) => {
     if (splitlist.length) {
         console.log(splitlist)
         return splitlist.map(item => (
-            <div style={{ display: 'flex', justifyContent: 'space-between', paddingLeft: "1%", paddingRight: '1%', alignItems: 'center', marginLeft: '6%', border: '1px solid black', backgroundColor: "#FFE193 ", width: '94vh', height: '6vh', borderTopRightRadius: '10px', borderBottomLeftRadius: '10px' }}>
-                <GetUser id={item.debtor} user={props.user} trip={props.trip} />  {item.amount}
+            <div style={{ display: 'flex', paddingLeft: "1%", paddingRight: '1%', width:'80%',alignItems: 'center', border: '1px solid black', backgroundColor: "#FFE193 ", width: '94vh', height: '6vh', borderTopRightRadius: '10px', borderBottomLeftRadius: '10px' }}>
+                <GetUser id={item.debtor} user={props.user} trip={props.trip} />  
+                <div style={{marginLeft:'auto', paddingRight:'3%'}}>{item.amount} Rs</div>
                 <DisplayPaidInfo item={item} user={props.user} trip={props.trip}></DisplayPaidInfo>
 
             </div>));

@@ -1,5 +1,5 @@
 import { useEffect,useState } from "react"
-
+import {TiTick} from "react-icons/ti"
 
 const GetPaidInfo = (props) => {
     const [paidInfo, setpaidinfo] = useState(false);
@@ -12,8 +12,8 @@ const GetPaidInfo = (props) => {
         };
         fetchData();
     }, [])
-    if (paidInfo) return <span>PAID</span>
-    else return <span>UNPAID</span>
+    if (paidInfo) return <span style={{paddingRight:'3%'}}><TiTick color='green'/></span>
+    else return <span style={{paddingRight:'5.5%'}} ></span>
 }
 
 export default GetPaidInfo;

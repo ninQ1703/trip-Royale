@@ -1,4 +1,5 @@
 import { useEffect,useState } from "react"
+import {TiTick} from "react-icons/ti"
 
 const DisplayPaidInfo = (props) => {
     const [paid, setPaid] = useState(props.item.paid)
@@ -13,8 +14,10 @@ const DisplayPaidInfo = (props) => {
             .then(response => response.json()).then((data) => setPaid(data.paid))
     }
     console.log(paid);
-    if (paid == true) return <span> PAID</span>;
-    else return <button onClick={(event) => handleClick(props.item)}> UNPAID</button>;
+    if (paid == true) return <span style={{paddingRight:'3%', paddingLeft:'2%'}}><TiTick color='green'/></span>
+    else return <button style={{textDecoration:'none', backgroundColor:'transparent',borderWidth:'0px', color: '#8B0000', paddingRight:'3%'}} onClick={(event) => handleClick(props.item)}>
+    due
+</button>;
 }
 
 export default DisplayPaidInfo;
