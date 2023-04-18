@@ -4,15 +4,19 @@ import * as React from 'react';
 import CldGallery from './components/CldGallery'
 import { Cloudinary } from "@cloudinary/url-gen";
 import ImageUpload from "./components/ImageUpload";
-import { useEffect } from "react"
+import { useEffect } from "react";
+import { useLocation } from 'react-router-dom';
 
 const Gallery=(props) => {
     const [imagesUploadedList, setImagesUploadedList] = useState([]);
     const [images, setImages] = useState([]);
+    const location = useLocation();
+    const { trip } = location.state;
+    const { user } = location.state;
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(`http://127.0.0.1:8000/${props.user}/${props.trip}/photos/`);
+            const response = await fetch(`http://127.0.0.1:8000/${user}/${trip}/photos/`);
             const newPhotosList = await response.json();
             setImages(newPhotosList);
         };

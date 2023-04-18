@@ -8,8 +8,11 @@ import { ImAirplane } from "react-icons/im";
 import { MdLocalHotel, MdLocalDining,MdHiking } from "react-icons/md";
 import {HiShoppingCart} from "react-icons/hi"
 import {BsBoundingBoxCircles} from "react-icons/bs"
+import { useLocation } from "react-router-dom";
 
 const RenderTotal = (props) => {
+   
+
    const [amount, setAmount] = useState(0);
    useEffect(() => {
       const fetchData = async () => {
@@ -59,6 +62,10 @@ const RenderTag = (props) => {
 
 
 const TotalExpenses = (props) => {
+   const location = useLocation();
+    const { trip } = location.state;
+    const { user } = location.state;
+
    const tags = [
       {
          tag: "travel",
@@ -119,14 +126,14 @@ const TotalExpenses = (props) => {
 
          <div style={{ marginTop: '10%' }}>
             <Col>
-               <RenderTotal user={props.user} trip={props.trip} />
+               <RenderTotal user={user} trip={trip} />
                <div style={{ height: "10%", backgroundColor: "#FFE193", width: "80vh", border: "0.5px solid black", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, marginLeft: "50%", position: 'relative', zIndex: '5' }}>
-                  <RenderTag user={props.user} trip={props.trip} item={tags[0]} />
-                  <RenderTag user={props.user} trip={props.trip} item={tags[1]}/>
-                  <RenderTag user={props.user} trip={props.trip} item={tags[2]} />
-                  <RenderTag user={props.user} trip={props.trip} item={tags[3]} />
-                  <RenderTag user={props.user} trip={props.trip} item={tags[4]}/>
-                  <RenderTag user={props.user} trip={props.trip} item={tags[5]}/>
+                  <RenderTag user={user} trip={trip} item={tags[0]} />
+                  <RenderTag user={user} trip={trip} item={tags[1]}/>
+                  <RenderTag user={user} trip={trip} item={tags[2]} />
+                  <RenderTag user={user} trip={trip} item={tags[3]} />
+                  <RenderTag user={user} trip={trip} item={tags[4]}/>
+                  <RenderTag user={user} trip={trip} item={tags[5]}/>
                </div>
             </Col>
          </div>

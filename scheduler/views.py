@@ -35,4 +35,10 @@ class NewTask(APIView):
             serializer_obj.save()
             return Response(serializer_obj.data,status=status.HTTP_201_CREATED)
         return Response(serializer_obj.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class DelTask(APIView):
+   def delete(self, request, task_id, me, trip_id,date):
+        plan = Planner.objects.get(id=task_id)
+        plan.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 

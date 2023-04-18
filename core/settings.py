@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'photos',
     'trip',
     'scheduler',
+    'chat',
     'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt'

@@ -6,10 +6,15 @@ import Sidebar from './Sidebar';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
-import './NewSplit.css'
+import './NewSplit.css';
+import { useLocation } from "react-router-dom";
 
 
 const NewSplit = (props) => {
+    const location = useLocation();
+    const { trip } = location.state;
+    const { user } = location.state;
+
     const [Tamount, setTAmount] = useState("0");
     const [selected, setSelected] = useState({ name: "ADD TAG", value: "others" });
     const [selected_list, setSelected_list] = useState([]);
@@ -18,13 +23,13 @@ const NewSplit = (props) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const resUsers = await fetch(`http://127.0.0.1:8000/${props.user}/${props.trip}/attendees`);
+            const resUsers = await fetch(`http://127.0.0.1:8000/${user}/${trip}/attendees`);
             let users = await resUsers.json();
             // console.log(users)
 
-            users.forEach((userr) => { if (userr.id === props.user) { userr.name = "you"; } userr.amount = "0" })
-            setUnselected_list(users.filter((userr) => userr.id !== props.user));
-            setSelected_list(users.filter((userr) => userr.id === props.user));
+            users.forEach((userr) => { if (userr.id === user) { userr.name = "you"; } userr.amount = "0" })
+            setUnselected_list(users.filter((userr) => userr.id !== user));
+            setSelected_list(users.filter((userr) => userr.id === user));
         };
         fetchData();
     }, [])
@@ -56,12 +61,12 @@ const NewSplit = (props) => {
     const handleSubmit = (e) => {
         console.log("hi")
         e.preventDefault();
-        fetch(`http://127.0.0.1:8000/${props.user}/${props.trip}/newsplit/`, {
+        fetch(`http://127.0.0.1:8000/${user}/${trip}/newsplit/`, {
             method: 'POST',
             body: JSON.stringify({
-                trip: props.trip,
+                trip: trip,
                 tag: selected.value,
-                owner: props.user,
+                owner: user,
                 amount: Tamount,
             }),
             headers: {
@@ -71,7 +76,7 @@ const NewSplit = (props) => {
             .then((res) => res.json())
             .then((post) => {
                 selected_list.map((userr) => {
-                    fetch(`http://127.0.0.1:8000/${props.user}/${props.trip}/newsplitdist/`, {
+                    fetch(`http://127.0.0.1:8000/${user}/${trip}/newsplitdist/`, {
                         method: 'POST',
                         body: JSON.stringify({
                             split: post.id,
@@ -89,7 +94,14 @@ const NewSplit = (props) => {
             .catch((err) => {
                 console.log(err.message);
             });
-        navigate('/expenses/pendingpayments')
+        navigate('/expenses/pendingpayments',
+        {
+            state:{
+                trip:trip,
+                user:user
+            }
+        })
+        
     };
     const setAmount = (id, amount) => {
         let updateUserSel = [...selected_list]

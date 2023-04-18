@@ -16,4 +16,5 @@ urlpatterns = [
     path('<int:trip_id>/',include('budgetPlanner.urls',namespace='budgetPlanner')),
     path('<int:trip_id>/',include('photos.urls',namespace='photos')),
     path('<int:trip_id>/',include('scheduler.urls',namespace='scheduler')),
+    path('<int:trip_id>/',include('chat.urls',namespace='chat')),
 ]

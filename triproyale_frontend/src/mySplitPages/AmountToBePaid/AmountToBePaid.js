@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import * as React from 'react';
 import bgm from './bgm.png'
 import DisplayItem from './DisplayItem';
+import { useLocation } from 'react-router-dom';
 
 //  list of functions used
 //  App => call DisplayItem
@@ -17,12 +18,15 @@ import DisplayItem from './DisplayItem';
 
 const AmountToBePaid = (props) => {
     const [users, setUsers] = useState([])
+    const location = useLocation();
+    const { trip } = location.state;
+    const { user } = location.state;
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(`http://127.0.0.1:8000/${props.user}/${props.trip}/attendees`);
+            const response = await fetch(`http://127.0.0.1:8000/${user}/${trip}/attendees`);
             const newUser = await response.json();
-            const newUser2 = newUser.filter((person) => person.id != props.user);
+            const newUser2 = newUser.filter((person) => person.id != user);
             setUsers(newUser2);
         };
         fetchData();
@@ -32,7 +36,7 @@ const AmountToBePaid = (props) => {
 
 
     const DisplayList = () => {
-        return users.map((item) => <DisplayItem item={item} user={props.user} trip={props.trip} />)
+        return users.map((item) => <DisplayItem item={item} user={user} trip={trip} />)
     }
 
     return (

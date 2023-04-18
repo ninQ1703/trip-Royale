@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-
+import {TiTick} from "react-icons/ti"
 const Paidinfo = (props) => {
     console.log("hi")
     const [paid, setPaid] = useState(false)
@@ -16,7 +16,7 @@ const Paidinfo = (props) => {
     return <DisplayPaidInfo paid={paid} user={props.user} trip={props.trip} />
 }
 const DisplayPaidInfo = (props) => {
-    if (props.paid == true) return <div style={{ display: 'inline-block', marginRight:'3%' }}>PAID </div>
+    if (props.paid == true) return <div style={{marginRight:'3%' }}><TiTick color='green'/></div>
     else return <div style={{ display: 'inline-block' , marginRight:'3%', color:'#8B0000'}}> due </div>
 }
 

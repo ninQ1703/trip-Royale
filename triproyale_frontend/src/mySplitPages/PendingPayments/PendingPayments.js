@@ -7,15 +7,19 @@ import Button from 'react-bootstrap/Button';
 import { useEffect, useState } from "react"
 import DisplayItem from './DisplayItem';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const PendingPayments = (props) => {
+    const location = useLocation();
+    const { trip } = location.state;
+    const { user } = location.state;
     const [splits, setSplits] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
-            console.log(props.user)
-            const resSplits = await fetch(`http://127.0.0.1:8000/${props.user}/${props.trip}/mysplits/`);
+            console.log(user)
+            const resSplits = await fetch(`http://127.0.0.1:8000/${user}/${trip}/mysplits/`);
             const splits = await resSplits.json();
             setSplits(splits)
         };
@@ -27,7 +31,7 @@ const PendingPayments = (props) => {
 
     const DisplayList = () => {
         console.log(splits);
-        return splits.map((split) => <DisplayItem split={split} user={props.user} trip={props.trip} />)
+        return splits.map((split) => <DisplayItem split={split} user={user} trip={trip} />)
     }
 
     return (
@@ -67,7 +71,14 @@ const PendingPayments = (props) => {
                 }}>
                     <Button variant="warning" style=
                         {{ position: 'fixed', backgroundColor: "#FF900B", fontSize: "20px", color: "#000000", borderRadius: '20px', borderColor: "#FFFFFF", width: "250px", height: "50px", left: "600px", bottom: '34px', boxShadow: "5px 5px 3px rgba(46, 46, 46, 0.62)" }}
-                        onClick={() => { navigate('/newsplit')}}>+ ADD NEW SPLIT</Button>
+                        onClick={() => { navigate('/newsplit',
+                        {
+                            state:{
+                                trip:trip,
+                                user:user
+                            }
+                        }
+                        )}}>+ ADD NEW SPLIT</Button>
                 </div>
             </Container >
             <div style={{ position: 'fixed', top: "95px", zIndex: "-10" }}>
