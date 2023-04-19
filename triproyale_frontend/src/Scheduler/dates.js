@@ -52,7 +52,7 @@ const RenderItems = (props) => {
 
   console.log(prevSel);
   return (
-    <div style={{ display: 'flex', overflowX: 'auto', maxWidth: '1500px', justifyContent: 'center', }}>
+    <div className='dates' style={{ }}>
       {props.dayplans.map((date) => (
         <DatesButton handleClick={props.handleClick} open={props.open} date={date} setprevSel={setprevSel} prevSel={prevSel}/>
       ))}

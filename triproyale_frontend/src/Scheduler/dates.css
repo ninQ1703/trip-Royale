@@ -22,3 +22,16 @@
     height: 60px;
     min-width: 100px
 }
+
+.dates {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+    display: flex;
+    overflow-x: auto;
+    max-width: 1500px;
+    justify-content: center;
+    padding-left:25%;
+}
+.dates::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
