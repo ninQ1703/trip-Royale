@@ -78,7 +78,7 @@ const PendingPayments = (props) => {
                         }}>+ ADD NEW SPLIT</Button>
                 </div>
             </Container >
-            <div style={{ position: 'fixed', top: "95px", zIndex: "-10" }}>
+            <div style={{ position: 'fixed', top: "90px", zIndex: "-10" }}>
                 <img src={bgm} style={{ width: "85%" }} />
             </div>
         </>

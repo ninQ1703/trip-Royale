@@ -139,14 +139,14 @@ const NewSplit = (props) => {
                     <input type='number' min="0" step="1" style={{ width: "37.5%", }} onChange={(event) => setTAmount(event.target.value)} />
                 </div>
                 <img
-                    src={ii} height={530} width={400} style={{ marginLeft: "0%", marginTop: "-13%", position: 'relative', zIndex: '-1' }}
+                    src={ii} height={530} width={400} style={{ marginLeft: "0%", marginTop: "-10%", position: 'relative', zIndex: '-1' }}
                     alt="logo"
                 />
 
                 <div>
                     <Sidebar updateList={updateList} unselected_list={unselected_list} selected_list={selected_list} sidebar={sidebar} showSidebar={showSidebar} />
                 </div>
-                <div style={{ marginLeft: '50%', marginTop: "-26%", border: "1px solid black", height: "230px", width: "35%", position: 'relative', borderTopLeftRadius: '14px', borderTopRightRadius: '14 px' }}>
+                <div style={{ marginLeft: '50%', marginTop: "-28%", border: "1px solid black", height: "230px", width: "35%", position: 'relative', borderTopLeftRadius: '14px', borderTopRightRadius: '14 px' }}>
                     <h5 style={{ paddingLeft: "5%", fontSize: "100%" }}>PEOPLE</h5>
                     {/* <ul> */}
                     <div style={{ marginLeft: '0%', overflowY: "scroll", overflowX: 'hidden', height: "170px", width: "100%" }}>

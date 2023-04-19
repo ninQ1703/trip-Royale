@@ -17,6 +17,7 @@ export function Scehduler(props) {
 
   let [sdate, setSDate] = useState("");
   let [edate, setEDate] = useState("");
+  let [name, setName] = useState("");
   const location = useLocation();
   const { trip } = location.state;
   const { user } = location.state;
@@ -25,7 +26,7 @@ export function Scehduler(props) {
   useEffect(() => {
     fetch(`http://127.0.0.1:8000/${user}/${trip}/`)
       .then((response) => response.json())
-      .then((data) => { setSDate(data.start_date); setEDate(data.end_date); })
+      .then((data) => { setSDate(data.start_date); setEDate(data.end_date); setName(data.name) })
       .then(console.log(user))
 
   }, [user, trip])
@@ -48,7 +49,7 @@ export function Scehduler(props) {
 
   return (
     <>
-      <SideBar trip={trip} user={user} />
+      <SideBar trip={trip} user={user} name={name}/>
       <div style={{
         position: "fixed", backgroundColor: "#F6AD52", color: "#000000", minHeight: '2.77em',
         top: '3em', width: '100%', zIndex: '3'

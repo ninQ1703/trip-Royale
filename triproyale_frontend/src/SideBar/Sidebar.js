@@ -22,13 +22,13 @@ function SideBar(props) {
   const handleME = () => setOpen(!open);
   return (
     <div style={{ position: 'fixed', zIndex: '4' }}>
-      <Button variant="warning" onClick={handleShow} style={{ backgroundColor: '#E28616', borderWidth: '0px', boxShadow: '1px 1px 1px 1px grey', position: 'fixed', top: '2px', margin: '2px' }}>
-        <FaBars size="1em"/>
+      <Button variant="warning" onClick={handleShow} style={{ backgroundColor: 'transparent', borderWidth: '0px', boxShadow: 'none', position: 'fixed', top: '8px', margin: '2px' }}>
+        <FaBars size="1.5em" color='white'/>
       </Button>
 
       <Offcanvas show={show} onHide={handleClose} backdrop="static" style={{ backgroundColor: '#AD6207' }}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title style={{ color: 'white' }}>PKP+2</Offcanvas.Title>
+          <Offcanvas.Title style={{ color: 'white' }}>{props.name}</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <ListGroup style={{ borderWidth: '0px' }}>

@@ -108,7 +108,7 @@ export const Dates = (props) => {
   return (
     <div className="text-center" style={{}}>
       <div
-        style={{ backgroundColor: "#FFE193", top: '20%', height: '10.5%', position: 'fixed', width: '100%', zIndex: '1' }}
+        style={{ backgroundColor: "#FFE193", top: '20%', height: '9.5%', position: 'fixed', width: '100%', zIndex: '1' }}
       >
 
         <ButtonGroup size="lg" zIndex="2">

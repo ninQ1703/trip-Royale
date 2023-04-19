@@ -16,7 +16,6 @@ const DisplayItem = (props) => {
             const newTotal = await response.json()
             setTotal(newTotal)
         };
-
         fetchData();
     }, [])
     function changeDisplay() {

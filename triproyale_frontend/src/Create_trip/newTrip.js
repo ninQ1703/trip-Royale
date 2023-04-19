@@ -100,9 +100,9 @@ export const NewTrip = () => {
 
     <div >
       <Container fluid
-        style={{ marginTop: "2%" }} >
+        style={{ marginTop: "4.5%" }} >
         <div className="row">
-          <div className="col">
+          <div className="col" style={{marginTop:'5%'}}>
             <img src={photo} alt="Trip" />
           </div>
           <div className="col" style={{ marginRight: "2%" }} >

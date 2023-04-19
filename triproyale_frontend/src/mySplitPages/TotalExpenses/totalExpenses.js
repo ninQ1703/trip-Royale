@@ -90,7 +90,7 @@ const TotalExpenses = (props) => {
          icon: <HiShoppingCart size="1.5em" />
       },
       {
-         tag: "activities",
+         tag: "adventure",
          TAG: "ACTIVITES",
          icon: <MdHiking size="1.5em" />
       },

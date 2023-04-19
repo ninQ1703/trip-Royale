@@ -7,7 +7,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-import { IoAddCircleSharp } from "react-icons/io5"
+import { MdAddCircle } from "react-icons/md"
 import { BsArrowRight } from "react-icons/bs"
 import ConfigIcon from './icon_color';
 import { icons } from 'react-icons';
@@ -73,8 +73,8 @@ const DashB = () => {
   console.log(groupsData);
   // console.log(trip);
   return (
-    <div style={{ marginTop:'4.6%'}}>
-      
+    <div style={{ marginTop: '4.6%', overflow: 'hidden' }}>
+
       <Container fluid>
         <div className="row">
           <Col sm={8}
@@ -82,7 +82,7 @@ const DashB = () => {
               backgroundImage: `url(${background})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              height: '100vh',
+              height: '90vh',
               width: '60%',
               display: 'flex',
               justifyContent: 'center',
@@ -100,13 +100,13 @@ const DashB = () => {
             </h1>
           </Col>
 
-          <Col sm={4}  >
-            <Container className="pt-3">
+          <Col sm={4} style={{overflowY:'initial'}} >
+            <Container className="pt-3" style={{height:'90vh',width:'75vh', overflowY:'scroll', scrollbarWidth:'0px'}}>
               <h1
                 style={{
                   fontSize: '35px',
                   fontWeight: 'bold',
-                  marginBottom: '35px',
+                  // marginBottom: '35px',
                   marginTop: "5%"
                 }}
               ><BsArrowRight />   See previous trips
@@ -131,12 +131,17 @@ const DashB = () => {
                       style={{
                         backgroundColor: "#FF900B",
                         height: "50px",
-                        boxShadow: "3px 3px 3px rgba(46, 46, 46, 0.62)"
+                        boxShadow: "3px 3px 3px rgba(46, 46, 46, 0.62)",
+                        width: '100%',
+                        color: '#FFFFFF',
+                        verticalAlign: 'middle'
                       }}
                     >
                       <Card.Body>
                         <blockquote className="blockquote mb-0">
-                          {ev.name} {"=>"} {ev.dest}
+                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', alignContent: 'center', verticalAlign: 'middle', }}>
+                            <div style={{ fontWeight: "bold", fontSize: "24px" }}>{ev.name} </div> <div> {ev.dest}  <BsArrowRight marginLeft="auto" /> </div>
+                          </div>
                         </blockquote>
                       </Card.Body>
                     </Card>
@@ -144,19 +149,19 @@ const DashB = () => {
                   </div>
                 );
               })}
-              <Link to="/newtrip" state={{ user: userData.id }} >
-                <Button
+              <Link to="/newtrip" state={{ user: userData.id }} style={{ textDecoration: 'none', backgroundColor: 'transparent', color: '#FFFFFF' , position:'fixed', bottom:'10px', right:'100px'}} >
+                <div
                   style={{
-                    backgroundColor: 'transparent',
-                    borderColor: 'white',
+
                     marginLeft: '100%',
-                    marginTop: '70%',
+                    marginTop: '50%',
+                    
                   }}
                 >
-                  <IoAddCircleSharp color='orange' size="4em" />
+                  <MdAddCircle color='#E28616'  size="4em"  />
 
 
-                </Button>
+                </div>
               </Link>
             </Container>
           </Col>
