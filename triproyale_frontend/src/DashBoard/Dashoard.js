@@ -73,10 +73,8 @@ const DashB = () => {
   console.log(groupsData);
   // console.log(trip);
   return (
-    <div >
-      <div>
-
-      </div>
+    <div style={{ marginTop:'4.6%'}}>
+      
       <Container fluid>
         <div className="row">
           <Col sm={8}
@@ -132,7 +130,8 @@ const DashB = () => {
                     }}
                       style={{
                         backgroundColor: "#FF900B",
-                        height: "50px"
+                        height: "50px",
+                        boxShadow: "3px 3px 3px rgba(46, 46, 46, 0.62)"
                       }}
                     >
                       <Card.Body>

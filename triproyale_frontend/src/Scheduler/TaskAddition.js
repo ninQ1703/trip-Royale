@@ -50,12 +50,12 @@ export const TaskAdd = (props) => {
 
   };
   return (
-
+<div style={{position:'fixed', zIndex:'23', top:'85% ', left:'42%'}}>
     <OverlayTrigger
       // trigger="click"
       show={open}
       placement="right"
-      style={{ backgroundColor: "#FFE193  ", width: "600px" }}
+      style={{ backgroundColor: "#FFE193", width: "600px",marginBottom:'50%', position:'fixed'}}
       overlay={
         <Popover id={`popover-positioned-top`} style={{ backgroundColor: "#FFFFFF", width: "600px", maxWidth: "35%" ,borderWidth:'1px',borderColor:'grey',boxShadow:'2px 2px 2px grey'}}>
           <Popover.Header as="h3" style={{ backgroundColor: "#E28616" ,color:'white',borderWidth:'1px',borderColor:'grey'}}>ADD DETAILS</Popover.Header>
@@ -77,7 +77,7 @@ export const TaskAdd = (props) => {
                 <Form.Control as="textarea" rows={3} placeholder="Eg. Go To Mahal" onChange={(e) => setDesc(e.target.value)} />
               </Form.Group>
               <div className="text-center">
-                <Button variant="primary" type="submit" style=
+                <Button variant="warning" type="submit" style=
                   {{ backgroundColor: "#E28616", color: "#000000", borderColor: "grey", width: "240px" }} onClick={() => setOpen(false)}>
                   Done
                 </Button>
@@ -87,10 +87,14 @@ export const TaskAdd = (props) => {
         </Popover>
       }
     >
+      
       <Button variant="warning" style=
-        {{ backgroundColor: "#FF900B", color: "#000000", borderColor: "grey", width: "400px", height: "50px", margin: "2%", boxShadow: "5px 5px 3px rgba(46, 46, 46, 0.62)" }}
+        {{ backgroundColor: "#FF900B", color: "#000000", borderColor: "grey", width: "200px", height: "50px", margin: "2%", boxShadow: "5px 5px 3px rgba(46, 46, 46, 0.62)",  }}
         size="lg" onClick={(e) => setOpen(!open)}>ADD TASK</Button>
+        
     </OverlayTrigger>
+    </div>
+   
   );
 }
 

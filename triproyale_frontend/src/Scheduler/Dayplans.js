@@ -15,7 +15,7 @@ export const DayPlans = (props) => {
 
 
   return (
-    <Container className="pt-3">
+    <Container className="pt-3" style={{}}>
       {props.Plan.map((ev) => {
         return (
           <div key={ev.id} className="d-flex mb-3">

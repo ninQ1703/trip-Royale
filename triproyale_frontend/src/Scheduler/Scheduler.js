@@ -57,7 +57,7 @@ export function Scehduler(props) {
         </div>
       </div>
       <div style={{
-        position: "fixed", backgroundColor: "#FFFFFF", color: "#000000", minHeight: '3em',
+        position: "fixed", backgroundColor: "#FFFFFF", color: "#000000", minHeight: '5em',
         top: '5em', width: '100%', zIndex: '1'
       }}>
       </div>

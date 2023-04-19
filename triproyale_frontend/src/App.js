@@ -3,7 +3,7 @@ import LoginReg from "./pages/auth/LoginReg";
 import ResetPassword from "./pages/auth/ResetPassword";
 import SendPasswordResetEmail from "./pages/auth/SendPasswordResetEmail";
 import Contact from "./pages/Contact";
-import DashB from "./DashBoard/dshb"
+import DashB from "./DashBoard/Dashoard"
 import Home from "./pages/Home";
 import Layout from "./pages/Layout";
 import { useSelector } from "react-redux";

@@ -7,7 +7,7 @@ import { months } from './month';
 import { Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap-buttons';
 import { DayPlans } from './Dayplans.js';
 import TaskAdd from './TaskAddition.js';
-
+import "./dates.css"
 export const Dates = (props) => {
 
   const [open, setOpen] = useState(true);
@@ -67,17 +67,11 @@ export const Dates = (props) => {
 
   const RenderItems = () => {
     return (
-      <div style={{ display: 'flex', overflowX: 'auto', maxWidth: '1500px', marginTop:'13%' , justifyContent:'center'}}>
+      <div style={{ display: 'flex', overflowX: 'auto',maxWidth: '1500px',  justifyContent:'center',}}>
         {props.dayplans.map((date) => (
           <Button
+          className="dateButton"
             key={date} 
-            variant="warning"
-            style={{
-              backgroundColor: '#FF900B',
-              color: '#000000',
-              height: '60px',
-              minWidth: '100px'
-            }}
             onClick={() => {
               handleClick(date);
             }}
@@ -96,16 +90,16 @@ export const Dates = (props) => {
 
   return (
     <div className="text-center" style={{}}>
-      <Container fluid
-        style={{ backgroundColor: "#FFE193", marginTop: "3%", marginBottom: "3%" }}
+      <div
+        style={{ backgroundColor: "#FFE193", top:'20%',height:'9.5%', position:'fixed', width:'100%', zIndex:'1'}}
       >
 
-        <ButtonGroup size="lg"  >
+        <ButtonGroup size="lg" zIndex="2">
           {RenderItems()}
         </ButtonGroup >
-      </Container>
+      </div>
       
-      <div id="schedule">
+      <div id="schedule" style={{overflowY:'initial', marginTop:'15%',zIndex:'-2'}}>
         <DayPlans Plan={schedule} DeleteTask={DeleteTask} user={props.user} trip={props.trip} />
       </div>
       

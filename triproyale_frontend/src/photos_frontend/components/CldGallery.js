@@ -11,7 +11,7 @@ const CldGallery = (props) => {
     initLightboxJS("609C-52DA-37DC-11B6", "individual");
   }, [])
 
-  return <div style={{position:'absolute', top:'20%'}}><div style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', alignItems: "center", marginLeft: '8%', marginRight: '7%' }}>
+  return <div style={{position:'absolute', top:'20%', overflowY:'initial',width:'100%' }}><div style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', alignItems: "center", marginLeft: '8%', marginRight: '7%' }}>
     {!props.imagesUploaded && props.imagesUploaded.length === 0 && (
       <p >No photos were added yet.</p>
     )}
@@ -19,7 +19,7 @@ const CldGallery = (props) => {
       props.imagesUploaded.length !== 0 &&
       props.imagesUploaded.map((pic) => {
         return (
-          <div style={{ padding: '5px', width: '340px', height: '500px' }}>
+          <div style={{ padding: '9px', width: '380px', height: '500px' }}>
             <Image image={{ src: pic.src, title: "Cyberpunk", }} />
           </div>
         );
