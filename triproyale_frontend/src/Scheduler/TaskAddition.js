@@ -34,8 +34,8 @@ export const TaskAdd = (props) => {
           date: props.day,
           time: time,
           loc: loc,
-          trip: 1,
-          added_by: 1
+          trip: props.trip,
+          added_by: props.user
         }),
         headers: {
           'Content-type': 'application/json; charset=UTF-8',

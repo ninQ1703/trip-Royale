@@ -8,6 +8,8 @@ import { useEffect, useState } from "react"
 import DisplayItem from './DisplayItem';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import SideBar from '../../SideBar/Sidebar';
+
 
 const PendingPayments = (props) => {
     const location = useLocation();
@@ -36,15 +38,8 @@ const PendingPayments = (props) => {
 
     return (
         <>
-            <div style={{
-                position: "fixed", backgroundColor: "#E28616", color: "#FFFFFF",
-                minHeight: '3em', width: '100%',
-                margin: '0', top: '0%', left: '0%', zIndex: '3'
-            }}>
-                <div style={{ fontSize: "2em", fontWeight: "2em", float: "left", maxHeight: "60px", marginLeft: "3%" }}>
-                    TripRoyale
-                </div>
-            </div>
+            <SideBar trip={trip} user={user} />
+
             <div style={{
                 position: "fixed", backgroundColor: "#F6AD52", color: "#000000", minHeight: '2.77em',
                 top: '3em', width: '100%', zIndex: '3'
@@ -60,7 +55,7 @@ const PendingPayments = (props) => {
 
 
 
-            <Container className="pt-3" style={{ marginTop: '15%', marginBottom:'30%' }}>
+            <Container className="pt-3" style={{ marginTop: '15%', marginBottom: '30%' }}>
                 <div >
                     {DisplayList()}
                 </div>
@@ -71,14 +66,16 @@ const PendingPayments = (props) => {
                 }}>
                     <Button variant="warning" style=
                         {{ position: 'fixed', backgroundColor: "#FF900B", fontSize: "20px", color: "#000000", borderRadius: '20px', borderColor: "#FFFFFF", width: "250px", height: "50px", left: "600px", bottom: '34px', boxShadow: "5px 5px 3px rgba(46, 46, 46, 0.62)" }}
-                        onClick={() => { navigate('/newsplit',
-                        {
-                            state:{
-                                trip:trip,
-                                user:user
-                            }
-                        }
-                        )}}>+ ADD NEW SPLIT</Button>
+                        onClick={() => {
+                            navigate('/newsplit',
+                                {
+                                    state: {
+                                        trip: trip,
+                                        user: user
+                                    }
+                                }
+                            )
+                        }}>+ ADD NEW SPLIT</Button>
                 </div>
             </Container >
             <div style={{ position: 'fixed', top: "95px", zIndex: "-10" }}>

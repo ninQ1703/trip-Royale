@@ -99,15 +99,6 @@ export const NewTrip = () => {
   return (
 
     <div >
-      <div>
-        <Navbar variant="dark"
-          style={{ backgroundColor: "#E28616", color: "#000000", height: "50px" }}>
-          <Container>
-            <Navbar.Brand style={{ fontSize: "30px" }}><strong>TRIP  ROYALE</strong></Navbar.Brand>
-          </Container>
-        </Navbar>
-
-      </div>
       <Container fluid
         style={{ marginTop: "2%" }} >
         <div className="row">
@@ -159,7 +150,7 @@ export const NewTrip = () => {
                   onChange={handleMemberSelection}
                 >{usersData.map((user) => (
                   // <option key={user.id} value={user.id}>+{user.name}</option>
-                  <option key={user.id} value={user.id}>+ {user.Name}</option>
+                  <option key={user.id} value={user.id}>+ {user.name}</option>
 
                 ))}</Form.Control>
               </Form.Group>

@@ -3,8 +3,6 @@ import { openUploadWidget } from "../utils/CloudinaryService";
 import React from 'react'
 
 const ImageUpload = (props) => {
-  const user = 1;
-  const trip = 1;
   const uploadImageWidget = () => {
     console.log(props);
     let myUploadWidget = openUploadWidget(
@@ -39,12 +37,12 @@ const ImageUpload = (props) => {
       function (error, result) {
         if (!error && result.event === "success") {
           
-          fetch(`http://127.0.0.1:8000/${user}/${trip}/photos/upload/`, {
+          fetch(`http://127.0.0.1:8000/${props.user}/${props.trip}/photos/upload/`, {
             method: 'POST',
             body: JSON.stringify({
               src:result.info.url,
-              trip: trip,
-              uploader: user,
+              trip: props.trip,
+              uploader: props.user,
             }),
             headers: {
               'Content-type': 'application/json; charset=UTF-8',

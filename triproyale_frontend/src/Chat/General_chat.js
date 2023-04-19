@@ -9,7 +9,7 @@ import Col from 'react-bootstrap/Col';
 // import SideBar from '../Sidebar';
 import background from './Rectangle.png';
 import { useLocation } from 'react-router-dom'
-
+import SideBar from '../SideBar/Sidebar';
 
 export const ChatPage = () => {
     
@@ -85,32 +85,15 @@ export const ChatPage = () => {
 
     return (
         <div>
-            <Navbar variant="dark"
-                style={{
-                    backgroundColor: "#E28616",
-                    color: "#000000",
-                    height: "50px",
-                    position: 'fixed',
-                    width: "100%",
-                    zIndex: '2'
-                }}>
-                {/* <SideBar groupName={groupData.name} /> */}
-                <Container>
-                    <Navbar.Brand style={{ fontSize: "30px" }}><strong>TRIP  ROYALE</strong></Navbar.Brand>
-                </Container>
-            </Navbar>
-            <Navbar
-                style={{
-                    backgroundColor: "#F6AD52",
-                    color: "#000000", textAlign: "center",
-                    display: "inline-block",
-                    width: "100%",
-                    marginTop: '3.2%',
-                    zIndex: '2',
-                    position: 'fixed'
-                }}>
-                <h4>GENERAL</h4>
-            </Navbar>
+            <SideBar trip={trip} user={user} />
+         <div style={{
+            position: "fixed", backgroundColor: "#F6AD52", color: "#000000", minHeight: '2.77em',
+            top: '3em', width: '100%', zIndex: '3'
+         }}>
+            <div style={{ fontSize: "1.5em", textAlign: "center", fontWeight: "2em", maxHeight: "60px", marginLeft: "3%", paddingTop: ".5%", paddingBottom: ".3%" }}>GENERAL
+            </div>
+         </div>
+         
 
             <Container fluid>
                 <div className="row"  >

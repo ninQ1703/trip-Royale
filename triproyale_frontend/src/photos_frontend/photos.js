@@ -6,7 +6,7 @@ import { Cloudinary } from "@cloudinary/url-gen";
 import ImageUpload from "./components/ImageUpload";
 import { useEffect } from "react";
 import { useLocation } from 'react-router-dom';
-
+import SideBar from '../SideBar/Sidebar';
 const Gallery=(props) => {
     const [imagesUploadedList, setImagesUploadedList] = useState([]);
     const [images, setImages] = useState([]);
@@ -56,15 +56,7 @@ const Gallery=(props) => {
                 ></script>
             </Helmet>
             <div className="App">
-                <div style={{
-                    position: "fixed", backgroundColor: "#E28616", color: "#FFFFFF",
-                    minHeight: '2.88em', width: '100%',
-                    margin: '0', top: '0%', left: '0%', zIndex: '3'
-                }}>
-                    <div style={{ fontSize: "2em", fontWeight: "2em", float: "left", maxHeight: "60px", marginLeft: "3%" }}>
-                        TripRoyale
-                    </div>
-                </div>
+            <SideBar trip={trip} user={user}/>
                 <div style={{
                     position: "fixed", backgroundColor: "#F6AD52", color: "#000000", minHeight: '2.77em',
                     top: '2.88em', width: '100%', zIndex: '3'
@@ -86,6 +78,8 @@ const Gallery=(props) => {
                         cloud_name={cld.cloudinaryConfig.cloud.cloud_name}
                         upload_preset={cld.cloudinaryConfig.cloud.upload_preset}
                         onImageUpload={(photoObject) => onImageUploadHandler(photoObject)}
+                        user={user}
+                        trip={trip}
                     />
                 </div>
             </div>

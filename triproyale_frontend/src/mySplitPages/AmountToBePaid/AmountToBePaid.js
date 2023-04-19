@@ -6,6 +6,7 @@ import * as React from 'react';
 import bgm from './bgm.png'
 import DisplayItem from './DisplayItem';
 import { useLocation } from 'react-router-dom';
+import SideBar from '../../SideBar/Sidebar';
 
 //  list of functions used
 //  App => call DisplayItem
@@ -41,15 +42,8 @@ const AmountToBePaid = (props) => {
 
     return (
         <>
-            <div style={{
-                position: "fixed", backgroundColor: "#E28616", color: "#FFFFFF",
-                minHeight: '3em', width: '100%',
-                margin: '0', top: '0%', left: '0%', zIndex: '3'
-            }}>
-                <div style={{ fontSize: "2em", fontWeight: "2em", float: "left", maxHeight: "60px", marginLeft: "3%" }}>
-                    TripRoyale
-                </div>
-            </div>
+            <SideBar trip={trip} user={user} />
+
             <div style={{
                 position: "fixed", backgroundColor: "#F6AD52", color: "#000000", minHeight: '2.77em',
                 top: '3em', width: '100%', zIndex: '3'

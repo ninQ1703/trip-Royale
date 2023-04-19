@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
 import './NewSplit.css';
 import { useLocation } from "react-router-dom";
+import SideBar from '../../SideBar/Sidebar';
+
 
 
 const NewSplit = (props) => {
@@ -95,13 +97,13 @@ const NewSplit = (props) => {
                 console.log(err.message);
             });
         navigate('/expenses/pendingpayments',
-        {
-            state:{
-                trip:trip,
-                user:user
-            }
-        })
-        
+            {
+                state: {
+                    trip: trip,
+                    user: user
+                }
+            })
+
     };
     const setAmount = (id, amount) => {
         let updateUserSel = [...selected_list]
@@ -109,18 +111,9 @@ const NewSplit = (props) => {
         setSelected_list(updateUserSel);
     }
     console.log(selected)
-    return (
-
-        <div style={{ position:'relative',overflowY: 'hidden' }}>
-            <div style={{
-                position: "fixed", backgroundColor: "#E28616", color: "#FFFFFF",
-                minHeight: '3em', width: '100%',
-                margin: '0', top: '0%', left: '0%', zIndex: '3'
-            }}>
-                <div style={{ fontSize: "2em", fontWeight: "2em", float: "left", maxHeight: "60px", marginLeft: "3%" }}>
-                    TripRoyale
-                </div>
-            </div>
+    return <>
+        <SideBar trip={trip} user={user} />
+        <div style={{ position: 'relative', overflowY: 'hidden' }}>
             <div style={{
                 position: "fixed", backgroundColor: "#F6AD52", color: "#000000", minHeight: '2.77em',
                 top: '3em', width: '100%', zIndex: '3'
@@ -128,11 +121,13 @@ const NewSplit = (props) => {
                 <div style={{ fontSize: "1.5em", textAlign: "center", fontWeight: "2em", maxHeight: "60px", marginLeft: "3%", paddingTop: ".5%", paddingBottom: ".3%" }}>AMOUNT TO BE PAID
                 </div>
             </div>
+
             <div style={{
                 position: "fixed", backgroundColor: "#FFFFFF", color: "#000000", minHeight: '3em',
                 top: '5em', width: '100%', zIndex: '1'
             }}>
             </div>
+
             <div style={{ marginTop: '10%' }}>
                 <div >
                     <Dropdown selected={selected.name} setSelected={setSelected} />
@@ -149,24 +144,24 @@ const NewSplit = (props) => {
                 />
 
                 <div>
-                    <Sidebar updateList={updateList} unselected_list={unselected_list} selected_list={selected_list} sidebar={sidebar} showSidebar={showSidebar}/>
+                    <Sidebar updateList={updateList} unselected_list={unselected_list} selected_list={selected_list} sidebar={sidebar} showSidebar={showSidebar} />
                 </div>
                 <div style={{ marginLeft: '50%', marginTop: "-26%", border: "1px solid black", height: "230px", width: "35%", position: 'relative', borderTopLeftRadius: '14px', borderTopRightRadius: '14 px' }}>
                     <h5 style={{ paddingLeft: "5%", fontSize: "100%" }}>PEOPLE</h5>
                     {/* <ul> */}
-                        <div style={{marginLeft:'0%',overflowY: "scroll",overflowX:'hidden',height:"170px",width:"100%"}}>
-                            {selected_list.map((item) => (
-                                <div className="selectedhover" style={{ paddingLeft:"2%",marginTop: "2%", fontSize: "100%" }} >
-                                    <button style={{ backgroundColor:'transparent',borderWidth:'0px'}} onClick={(e) => RemoveUser(item.id)}>
-                                    <RxCross2/>
-                                    </button> {item.name} 
-                                    <div>
-                                        <input type='number' min="0" step="1" style={{ marginTop: "-5%", width: "80px", display: "flex", height: "25px", marginLeft: "80%" }} defaultValue={item.amount} onChange={(event) => { setAmount(item.id, event.target.value); }} />
-                                    </div>
+                    <div style={{ marginLeft: '0%', overflowY: "scroll", overflowX: 'hidden', height: "170px", width: "100%" }}>
+                        {selected_list.map((item) => (
+                            <div className="selectedhover" style={{ paddingLeft: "2%", marginTop: "2%", fontSize: "100%" }} >
+                                <button style={{ backgroundColor: 'transparent', borderWidth: '0px' }} onClick={(e) => RemoveUser(item.id)}>
+                                    <RxCross2 />
+                                </button> {item.name}
+                                <div>
+                                    <input type='number' min="0" step="1" style={{ marginTop: "-5%", width: "80px", display: "flex", height: "25px", marginLeft: "80%" }} defaultValue={item.amount} onChange={(event) => { setAmount(item.id, event.target.value); }} />
                                 </div>
+                            </div>
 
-                            ))}
-                        </div>
+                        ))}
+                    </div>
                     {/* </ul> */}
                     <Button variant="warning"
                         style={{ border: "1px solid black", backgroundColor: "#FF900B", fontSize: "15px", color: "#000000", borderColor: "#FFFFFF", width: "100%", height: "25px", paddingBottom: '6%', position: "absolute", bottom: '0px' }}
@@ -176,7 +171,7 @@ const NewSplit = (props) => {
             </div>
 
         </div>
-    );
+    </>
 
 }
 

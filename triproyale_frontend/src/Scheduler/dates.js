@@ -39,7 +39,7 @@ export const Dates = (props) => {
       .then((data) => setSchedule(data));
     console.log(schedule);
 
-  }, [])
+  }, [props.user,props.trip])
 
   const handleClick = async (date) => {
     const res = await fetch(`http://localhost:8000/${props.user}/${props.trip}/schedule/${date}/events`);
@@ -67,7 +67,7 @@ export const Dates = (props) => {
 
   const RenderItems = () => {
     return (
-      <div style={{ display: 'flex', overflowX: 'auto', maxWidth: '1500px' }}>
+      <div style={{ display: 'flex', overflowX: 'auto', maxWidth: '1500px', marginTop:'13%' , justifyContent:'center'}}>
         {props.dayplans.map((date) => (
           <Button
             key={date} 
@@ -95,14 +95,14 @@ export const Dates = (props) => {
   console.log(schedule);
 
   return (
-    <div className="text-center">
+    <div className="text-center" style={{}}>
       <Container fluid
         style={{ backgroundColor: "#FFE193", marginTop: "3%", marginBottom: "3%" }}
       >
 
-        <ButtonGroup size="lg" >
+        <ButtonGroup size="lg"  >
           {RenderItems()}
-        </ButtonGroup>
+        </ButtonGroup >
       </Container>
       
       <div id="schedule">

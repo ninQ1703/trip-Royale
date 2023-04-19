@@ -10,8 +10,9 @@ import { SlCalender } from "react-icons/sl"
 import { GoLocation } from "react-icons/go"
 import { CgViewSplit } from "react-icons/cg"
 import { BsWallet, BsChevronDoubleDown } from "react-icons/bs"
-import { AiOutlineCloudUpload } from "react-icons/ai"
+import { AiOutlineCloudUpload , AiOutlineBars} from "react-icons/ai"
 import { BsChatDots } from "react-icons/bs"
+import {FaBars} from "react-icons/fa"
 function SideBar(props) {
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
@@ -22,7 +23,7 @@ function SideBar(props) {
   return (
     <div style={{ position: 'fixed', zIndex: '4' }}>
       <Button variant="warning" onClick={handleShow} style={{ backgroundColor: '#E28616', borderWidth: '0px', boxShadow: '1px 1px 1px 1px grey', position: 'fixed', top: '2px', margin: '2px' }}>
-        -
+        <FaBars size="1em"/>
       </Button>
 
       <Offcanvas show={show} onHide={handleClose} backdrop="static" style={{ backgroundColor: '#AD6207' }}>

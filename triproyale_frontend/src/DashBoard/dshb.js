@@ -8,34 +8,73 @@ import Button from 'react-bootstrap/Button';
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { IoAddCircleSharp } from "react-icons/io5"
-import {BsArrowRight} from "react-icons/bs"
+import { BsArrowRight } from "react-icons/bs"
 import ConfigIcon from './icon_color';
 import { icons } from 'react-icons';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { unSetUserToken } from '../features/authSlice';
+import { getToken, removeToken } from '../services/LocalStorageService';
+import { useGetLoggedUserQuery } from '../services/userAuthApi';
+import { setUserInfo, unsetUserInfo } from '../features/userSlice';
 
-export const DashB = (props) => {
+const DashB = () => {
+
+
+  const handleLogout = () => {
+    dispatch(unsetUserInfo({ name: "", email: "", id: "" }))
+    dispatch(unSetUserToken({ access_token: null }))
+    removeToken()
+    navigate('/login')
+  }
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { access_token } = getToken()
+  const { data, isSuccess } = useGetLoggedUserQuery(access_token)
+
+  const [userData, setUserData] = useState({
+    email: "",
+    name: "",
+    id: ""
+  })
+  useEffect(() => {
+    if (data && isSuccess) {
+      setUserData({
+        email: data.email,
+        name: data.name,
+        id: data.id,
+      })
+    }
+  }, [data, isSuccess])
+  useEffect(() => {
+    if (data && isSuccess) {
+      dispatch(setUserInfo({
+        email: data.email,
+        name: data.name,
+        id: data.id
+      }))
+    }
+  }, [data, isSuccess, dispatch])
+
+
+
+
   const [groupsData, setData] = useState([]);
   const [trip, setTrip] = useState("");
   // const [user, setUser] = useState(0);
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/${props.user}/trips`)
+    fetch(`http://127.0.0.1:8000/${userData.id}/trips`)
       .then((response) => response.json())
       .then((data) => { setData(data) })
-  }, [])
+  }, [userData])
 
 
 
-  // console.log(groupsData);
+  console.log(groupsData);
   // console.log(trip);
   return (
     <div >
       <div>
-
-        <Navbar variant="dark"
-          style={{ backgroundColor: "#E28616", color: "#000000", height: "50px" }}>
-          <Container>
-            <Navbar.Brand style={{ fontSize: "30px" }}><strong>TRIP  ROYALE</strong></Navbar.Brand>
-          </Container>
-        </Navbar>
 
       </div>
       <Container fluid>
@@ -59,7 +98,7 @@ export const DashB = (props) => {
                 fontWeight: 'bold',
                 marginBottom: '30%',
               }}>
-              Welcome to Trip Royale,<br /> {props.user}
+              Welcome to Trip Royale,<br /> {userData.name}
             </h1>
           </Col>
 
@@ -77,37 +116,45 @@ export const DashB = (props) => {
               {groupsData.map((ev) => {
                 return (
                   <div key={ev.id} className="d-flex mb-3">
-                    <Link to="/scheduler" state={{ trip: ev.id, user: props.user }} style={{ textDecoration: 'none', color:'white', width:'100%', }}>
+                    {/* <Link to="/scheduler" state={{ trip: ev.id, user: userData.id }} style={{ textDecoration: 'none', color: 'white', width: '100%', }}> */}
 
-                      <Card onClick={() => {
-                        setTrip(ev.id);
+                    <Card onClick={() => {
+                      setTrip(ev.id);
+                      navigate('/scheduler',
+                        {
+                          state: {
+                            trip: ev.id,
+                            user: userData.id
+                          }
+                        }
+                      )
 
+                    }}
+                      style={{
+                        backgroundColor: "#FF900B",
+                        height: "50px"
                       }}
-                        style={{
-                          backgroundColor: "#FF900B",
-                          height: "50px"
-                        }}
-                      >
-                        <Card.Body>
-                          <blockquote className="blockquote mb-0">
-                            {ev.name} {"=>"} {ev.dest}
-                          </blockquote>
-                        </Card.Body>
-                      </Card>
-                    </Link>
+                    >
+                      <Card.Body>
+                        <blockquote className="blockquote mb-0">
+                          {ev.name} {"=>"} {ev.dest}
+                        </blockquote>
+                      </Card.Body>
+                    </Card>
+                    {/* </Link> */}
                   </div>
                 );
               })}
-              <Link to="/newtrip" state={{ user: props.user }} >
+              <Link to="/newtrip" state={{ user: userData.id }} >
                 <Button
-                    style={{
-                      backgroundColor:'transparent', 
-                      borderColor:'white',
-                      marginLeft:'100%',
-                      marginTop:'70%',
-                      }}
+                  style={{
+                    backgroundColor: 'transparent',
+                    borderColor: 'white',
+                    marginLeft: '100%',
+                    marginTop: '70%',
+                  }}
                 >
-                  <IoAddCircleSharp color='orange' size="4em"/>
+                  <IoAddCircleSharp color='orange' size="4em" />
 
 
                 </Button>
@@ -119,6 +166,8 @@ export const DashB = (props) => {
     </div>
   );
 };
+
+export default DashB;
 
 
 
