@@ -1,14 +1,17 @@
 import { Grid } from "@mui/material";
+import homepage from "./HomePage.png"
 
 const Home = () => {
   return <>
-    <Grid container justifyContent='center'>
-      <Grid item sm={10}>
-      <h1>Home Page</h1>
-      <hr />
-      <p>Bhelcome!! Frontend nhi ho paa rha merese</p>
-      </Grid>
-    </Grid>
+    {/* <div style={{position:"absolute", top:"0px",width:"100%", backgroundColor:'#E28616',  height:'60px', zIndex:"2"}}>
+      home
+    </div> */}
+    <div style={{position: 'fixed', top:"30px", zIndex:"0", overflowY:'hidden'}}>
+      <img src={homepage} style={{ width:'100%'}}/>
+    </div>
+    {/* <div style={{ position: 'fixed', top: "90px", zIndex: "-10" }}>
+      <img src={homepage} style={{ height: "100%" }} />
+    </div> */}
   </>;
 };
 
