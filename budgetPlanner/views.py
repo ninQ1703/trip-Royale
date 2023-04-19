@@ -126,6 +126,8 @@ class CreateSplitDistribution(APIView):
     def post(self,request,me, trip_id):
         serializer_obj = SplitDistributionSerializer(data = request.data)
         if serializer_obj.is_valid():
+            # if serializer_obj.validated_data.get('debtor') == me :
+            #     serializer_obj.validated_data.get = True
             serializer_obj.save()
             return Response(serializer_obj.data,status=status.HTTP_201_CREATED)
         return Response(serializer_obj.errors, status=status.HTTP_400_BAD_REQUEST)

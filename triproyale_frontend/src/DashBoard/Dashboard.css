@@ -1,0 +1,9 @@
+.tripscroll{
+    height:90vh;
+    overflow-y:scroll;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+.tripscroll::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}

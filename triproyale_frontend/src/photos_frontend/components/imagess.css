@@ -1,0 +1,10 @@
+.images {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.images img {
+    flex-basis: 33%;
+    padding: 2px;
+}
