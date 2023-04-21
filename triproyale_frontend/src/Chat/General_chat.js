@@ -6,7 +6,6 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
-// import SideBar from '../Sidebar';
 import background from './Rectangle.png';
 import { useLocation } from 'react-router-dom'
 import SideBar from '../SideBar/Sidebar';
@@ -17,14 +16,13 @@ export const ChatPage = () => {
     const { trip } = location.state;
     const { user } = location.state;
     
-    const [messages, setMessages] = useState([]); // State to store chat messages
+    const [messages, setMessages] = useState([]); 
     const [members, setMembers] = useState(['']);
     let k = messages.length - 1;
     const chatRef = useRef(null);
     
-    const [input, setInput] = useState(''); // State to store input message
+    const [input, setInput] = useState('');
     useEffect(() => {
-        // console.log( props.startDate)
         fetch(`http://127.0.0.1:8000/${user}/${trip}/messages/`)
             .then((response) => response.json())
             .then((data) => { setMessages(data); console.log(messages); return fetch(`http://localhost:8000/${user}/${trip}/attendees`) })
@@ -36,10 +34,6 @@ export const ChatPage = () => {
         console.log(members);
 
     }, [])
-
-    // useEffect(() => {
-    //     chatRef.current.scrollTop = chatRef.current.scrollHeight;
-    //   }, [messages]);
 
     let username ="";
     const getUsername = (id) => {
@@ -65,7 +59,6 @@ export const ChatPage = () => {
         console.log(input);
        
         fetch(`http://127.0.0.1:8000/${user}/${trip}/post/`, {
-            // mode: 'no-cors',
             method: 'POST',
             body: JSON.stringify({
                 sender: username,
