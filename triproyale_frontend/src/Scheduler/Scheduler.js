@@ -5,14 +5,7 @@ import { Dates } from './dates.js';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import { useLocation } from 'react-router-dom'
-// import './App.css';
 
-// import {Dates} from './S_comp/dates.js';
-// import Container from 'react-bootstrap/Container';
-// import Navbar from 'react-bootstrap/Navbar';
-
-// let userid=1;
-// let trip_id=1;
 export function Scehduler(props) {
 
   let [sdate, setSDate] = useState("");
@@ -41,11 +34,8 @@ export function Scehduler(props) {
     return dateArray;
   }
 
-  // 3. Create out useEffect function
-
   console.log(sdate, edate)
   let daysOfTrip = getDates(sdate, edate);
-  // console.log(sdate)
 
   return (
     <>
