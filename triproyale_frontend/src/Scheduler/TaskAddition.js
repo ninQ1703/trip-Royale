@@ -3,22 +3,12 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
-
-// export const TaskAdd = (pl, { addMyTask }) => {
   
 export const TaskAdd = (props) => {
   const [time, setTime] = useState("");
   const [loc, setLoc] = useState("");
   const [desc, setDesc] = useState("");
   const [open, setOpen] = useState(false);
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (!time || !loc || !desc) {
-  //     alert("PLease fill all the details for your plan");
-  //   }
-  //   else pl.addMyTask(pl.length, time, loc, desc);
-  // }
- 
   
   const handleSubmit = (e) => {
     console.log(props.day, desc, time, loc);
