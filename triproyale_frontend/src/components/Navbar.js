@@ -24,10 +24,11 @@ const Navbar = () => {
     <AppBar position="fixed" style={{backgroundColor:"#E28616",zIndex:'3'}}>
         <Toolbar>
           {/* <Button component={NavLink} to='/' style={({ isActive }) => { return { backgroundColor: isActive ? '#FFC594' : '' } }} sx={{ color: 'white', textTransform: 'none' }}>Home</Button> */}
+          {access_token? null: <Typography variant='h5' component="div" sx={{ flexGrow: 1, marginLeft:'3%' }}></Typography> }
           {access_token ? <Typography variant='h5' component="div" sx={{ flexGrow: 1, marginLeft:'3%' }}>TripRoyale</Typography> : null}
           {/* <Button component={NavLink} to='/contact' style={({ isActive }) => { return { backgroundColor: isActive ? '#FFC594' : '' } }} sx={{ color: 'white', textTransform: 'none' }}>Contact</Button> */}
-          {access_token ? <Button onClick={() => navigate('/dashboard')} color='inherit' style={{color:'white',textDecoration:'none'}}>DashBoard</Button> : <Button component={NavLink} to='/' style={({ isActive }) => { return { backgroundColor: isActive ? '#FFC594' : '' } }} sx={{ color: 'white', textTransform: 'none' }}>Home</Button>}
-          {access_token ? <Button onClick={handleLogout} style={{color:'white',textDecoration:'none'}}>Logout</Button> : <Button component={NavLink} to='/login' style={({ isActive }) => { return { backgroundColor: isActive ? '#FFC594' : '' } }} sx={{ color: 'white', textTransform: 'none' }}>Login/Registration</Button>}
+          {access_token ? <Button onClick={() => navigate('/dashboard')} color='inherit' style={{color:'white',textDecoration:'none'}}>DashBoard</Button> : <Button component={NavLink} to='/' style={({ isActive }) => { return { backgroundColor: isActive ? '#FFC594' : '' } }} sx={{ color: 'white' }}>Home</Button>}
+          {access_token ? <Button onClick={handleLogout} style={{color:'white',textDecoration:'none'}}>Logout</Button> : <Button component={NavLink} to='/login' style={({ isActive }) => { return { backgroundColor: isActive ? '#FFC594' : '' } }} sx={{ color: 'white'}}>Login/Registration</Button>}
 
 
 

@@ -90,7 +90,7 @@ export const TaskAdd = (props) => {
       
       <Button variant="warning" style=
         {{ backgroundColor: "#FF900B", color: "#000000", borderColor: "grey", width: "200px", height: "50px", margin: "2%", boxShadow: "5px 5px 3px rgba(46, 46, 46, 0.62)",  }}
-        size="lg" onClick={(e) => setOpen(!open)}>ADD TASK</Button>
+        size="lg" onClick={(e) => setOpen(!open)}>ADD PLAN</Button>
         
     </OverlayTrigger>
     </div>
