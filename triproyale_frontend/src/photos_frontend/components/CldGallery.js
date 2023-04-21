@@ -19,7 +19,7 @@ const CldGallery = (props) => {
       props.imagesUploaded.length !== 0 &&
       props.imagesUploaded.map((pic) => {
         return (
-          <div style={{ padding: '9px', width: '380px', height: '500px' }}>
+          <div style={{ padding: '9px', width: '350px', height: '500px' }}>
             <Image image={{ src: pic.src, title: "Cyberpunk", }} />
           </div>
         );

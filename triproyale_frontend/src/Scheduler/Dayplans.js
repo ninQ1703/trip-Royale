@@ -50,7 +50,7 @@ export const DayPlans = (props) => {
                     {ev.desc}
                   </div>
                   <div style={{color:'grey'}}><MdLocationPin/> {ev.loc}</div>
-              </div>
+              </div> 
             </div>
             <CloseButton aria-label="Hide"
               style={{ height: "90px" }}
