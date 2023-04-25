@@ -12,7 +12,7 @@ We have primarily used Django Rest Framework for building APIs with Django, a Py
 -	Recommendations: Our webapp recommends nearby eateries and other establishments sorted by costs and previous customer reviews and ratings.
 -	Budget/Expense Manager: Our webapp enables users to split and manage expenses among each of the trip participants. It also provides day-wise and trip-wise expense tracking for each person in the trip.
 -	Photos Sharing: Our webapp has a feature that allows members to add and share photos on the cloud.
--	Chat Feature: Our webapp includes a on the go, group chat feature for users to communicate and collaborate.
+-	Chat Feature:Our webapp includes a on the go, group chat feature for users to communicate and collaborate.
 
 ## Technologies Used
 -	Django Rest Framework (DRF) – v^3.14.0
